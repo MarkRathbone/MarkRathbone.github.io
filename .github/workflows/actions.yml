@@ -18,6 +18,7 @@ jobs:
 
       - name: Build
         run: |
+          mkdir build
           npm run custom-deploy
 
       - name: Deploy

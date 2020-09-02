@@ -18,14 +18,13 @@ jobs:
 
       - name: Build
         run: |
-          npm build
+          npm run build
 
-      - name: Deploy
+      - name: npm Deploy
         run: |
-          mkdir build
           npm run custom-deploy
 
-      - name: Deploy
+      - name: move Deploy
         uses: JamesIves/github-pages-deploy-action@3.5.9
         with:
           GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'

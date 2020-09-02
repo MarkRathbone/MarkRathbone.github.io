@@ -1,7 +1,7 @@
 {
   "name": "developers-portfolio",
   "description": "A personal static website/portfolio template hosted with GitHub Pages, built to showcase my recent projects.",
-  "homepage": "http://hashirshoaeb.com",
+  "homepage": "https://MarkRathbone.github.io",
   "version": "1.0.0",
   "private": true,
   "author": {
@@ -15,6 +15,7 @@
     "bootstrap": "^4.4.1",
     "gh-pages": "^2.2.0",
     "jquery": "^3.5.1",
+    "json": "^9.0.6",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-photo-gallery": "^8.0.0",

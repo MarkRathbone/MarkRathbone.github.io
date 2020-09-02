@@ -65,9 +65,9 @@ const AboutMe = () => {
                   target="_blank"
                   rel="noreferrer noopener"
                   role="button"
-                  aria-label="Resume/CV"
+                  aria-label="CV"
                 >
-                  Resume
+                  CV
                 </a>
               </p>
             )}

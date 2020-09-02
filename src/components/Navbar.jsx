@@ -62,7 +62,7 @@ const Navbar = (props) => {
               target="_blank"
               rel="noreferrer noopener"
             >
-              <b>Resume</b>
+              <b>CV</b>
             </a>
           </li>
           <li className="nav-item">

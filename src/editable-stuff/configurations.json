@@ -2,51 +2,39 @@
   "backgroundType": "gradient",
   "plainBackgroundMode": "daylight",
   "gradientColors": "#EE7752, #E73C7E, #23A6D5, #23D5AB",
-  "FirstName": "Hashir",
-  "MiddleName": "",
-  "LastName": "Shoaib",
-  "devDesc": "| Engineer | Programmer | Web Developer | Photographer | Athlete | Artist ",
+  "FirstName": "Mark",
+  "MiddleName": "Anthony",
+  "LastName": "Rathbone",
+  "devDesc": "| Linux | Bash | Networking | Security | Cloud ",
   "icons": [
     {
       "id": 0,
       "image": "fa-github",
-      "url": "https://github.com/hashirshoaeb",
+      "url": "https://github.com/MarkRathbone",
       "style": "socialicons"
     },
     {
       "id": 1,
-      "image": "fa-facebook",
-      "url": "https://www.facebook.com/hashirshoaeb",
-      "style": "socialicons"
-    },
-    {
-      "id": 2,
-      "image": "fa-instagram",
-      "url": "https://www.instagram.com/hashirshoaeb/",
+      "image": "fa-linkedin",
+      "url": "https://www.linkedin.com/in/markanthonyrathbone/",
       "style": "socialicons"
     },
     {
       "id": 3,
-      "image": "fa-linkedin",
-      "url": "https://www.linkedin.com/in/hashirshoaeb/",
-      "style": "socialicons"
-    },
-    {
-      "id": 4,
       "image": "fa-twitter",
-      "url": "https://www.twitter.com/hashirshoaeb/",
+      "url": "https://www.twitter.com/markarathbone/",
       "style": "socialicons"
     }
   ],
   "aboutHeading": "About Me",
   "showInstaProfilePic": true,
   "instaLink": "https://www.instagram.com/",
-  "instaUsername": "hashirshoaeb",
+  "instaUsername": "markanthonyrathbone",
   "instaQuerry": "/?__a=1",
-  "aboutDescription": "I'm Computer Engineer from NUST CEME, Pakistan with 3+ years of experience in web development. I’m currently the Vice President of student body at Emerging Technologies Research Lab(ETL) and a former Intern at RiseTech. I'm passionate about teaching machines how to think",
+  "aboutDescription": "I am a Cloud Engineering student from the aws/restart program in Birmingham, UK, by Generations UK and Ireland. I have 10 years of experience working with hardware and I'm now looking to make a shift too Cloud. I'm currently very interested in continuing to develop my Python and Cloud skills and learning about AI and Machine Learning.",
   "projectHeading": "Recent Projects",
   "gitHubLink": "https://api.github.com/users/",
-  "gitHubUsername": "hashirshoaeb",
+  "gitHubUsername": "MarkRathbone",
   "gitHubQuerry": "/repos?sort=updated&direction=desc",
   "projectsLength": 4,
   "showNavigationbar": true,

@@ -5,7 +5,7 @@
   "FirstName": "Mark",
   "MiddleName": "Anthony",
   "LastName": "Rathbone",
-  "devDesc": "| Linux | Bash | Networking | Security | Cloud ",
+  "devDesc": "| Bash | Pythong | Linux | Networking | Security | Cloud ",
   "icons": [
     {
       "id": 0,
@@ -20,7 +20,7 @@
       "style": "socialicons"
     },
     {
-      "id": 3,
+      "id": 2,
       "image": "fa-twitter",
       "url": "https://www.twitter.com/markarathbone/",
       "style": "socialicons"

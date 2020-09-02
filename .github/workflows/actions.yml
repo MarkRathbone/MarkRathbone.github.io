@@ -18,6 +18,10 @@ jobs:
 
       - name: Build
         run: |
+          npm build
+
+      - name: Deploy
+        run: |
           mkdir build
           npm run custom-deploy
 

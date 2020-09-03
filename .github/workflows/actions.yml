@@ -6,13 +6,7 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    steps:
-      - name: Remove files
-        uses: JesseTG/rm@v1.0.2
-        with:
-          BRANCH: gh-pages
-          path: ./*
-          
+    steps:      
       - name: Checkout
         uses: actions/checkout@v2.3.1
         with:

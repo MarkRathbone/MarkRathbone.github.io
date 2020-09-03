@@ -15,6 +15,13 @@ jobs:
       - name: Install
         run: |
           npm install
+          
+      - name: Remove files
+        uses: JesseTG/rm@v1.0.2
+        with:
+          BRANCH: gh-pages
+          FOLDER: build
+          path: ./*
 
       - name: Build
         run: |

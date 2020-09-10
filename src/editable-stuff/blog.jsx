@@ -3,7 +3,7 @@ const bloglist = [];
 
 const blog = new BlogBuilder({
   title: "My First Blog",
-  image: "img",
+  image: "https://i.imgur.com/wl663oz.png",
   description:
     "Description Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatem, dolores? Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quia provident similique corporis rem ullam odio excepturi voluptas harum, architecto sit!",
 })
@@ -11,6 +11,7 @@ const blog = new BlogBuilder({
   .addParagraph(
     "1st Paragraph Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur vero reiciendis quas, autem sit culpa? Quibusdam, cupiditate voluptate a non nulla aliquid enim doloremque ullam, facilis quisquam similique hic omnis!"
   )
+  .addImage("https://i.imgur.com/wl663oz.png")
   .addParagraph(
     "2nd Paragraph Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consequuntur ad, temporibus quae obcaecati eum expedita pariatur aspernatur recusandae beatae iste soluta sunt blanditiis dolore ipsam quia laboriosam quas perspiciatis architecto?"
   );

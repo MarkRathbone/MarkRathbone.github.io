@@ -21,7 +21,7 @@ const blog1 = new BlogBuilder({
   description:
     "Description Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure tempore aut neque consectetur voluptatem quam nihil, facere earum adipisci, animi beatae dicta maiores, ipsam delectus ab molestias dolorum aperiam? Sapiente?",
 })
-  .addHeading("Heading")
+  .addHeading("Terrarform")
   .addParagraph(
     "1st Paragraph Aspernatur vero reiciendis quas, autem sit culpa? Quibusdam, cupiditate voluptate a non nulla aliquid enim doloremque ullam, facilis quisquam similique hic omnis!"
   )

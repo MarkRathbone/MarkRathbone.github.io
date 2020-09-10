@@ -38,5 +38,5 @@
   "gitHubQuerry": "/repos?sort=updated&direction=desc",
   "projectsLength": 4,
   "showNavigationbar": true,
-  "showBlog": false
+  "showBlog": true
 }

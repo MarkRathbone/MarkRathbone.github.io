@@ -24,7 +24,7 @@ jobs:
           git commit -m "Removal" -a
 
       - name: Push Removal
-        uses: ad-m/github-push-action@master
+        uses: ad-m/github-push-action@gh-pages
         with: 
           github_token: ${{ secrets.GITHUB_TOKEN }} 
   

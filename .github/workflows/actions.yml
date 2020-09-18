@@ -17,9 +17,9 @@ jobs:
 
       - name: Commit removal
         run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git commit -m "Removal" -a
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git commit -m "Removal" -a
 
       - name: Push Removal
         uses: ad-m/github-push-action@master

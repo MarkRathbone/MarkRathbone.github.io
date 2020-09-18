@@ -3,12 +3,34 @@ on:
   push:
     branches:
       - master
+
 jobs:
+  clean-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout gh-pages branch
+      - uses: actions/checkout@gh-pages
+
+      - name: Remove files
+        run: |
+          rm *
+
+      - name: Commit removal
+        run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git commit -m "Removal" -a
+
+      - name: Push Removal
+        uses: ad-m/github-push-action@master
+        with: 
+          github_token: ${{ secrets.GITHUB_TOKEN }} 
+  
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:      
       - name: Checkout
-        uses: actions/checkout@v2.3.1
+        uses: actions/checkout@master
         with:
           persist-credentials: false
 

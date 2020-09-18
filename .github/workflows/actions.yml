@@ -15,7 +15,7 @@ jobs:
 
       - name: Remove files
         run: |
-          rm *
+          rm -rf *
 
       - name: Commit removal
         run: |

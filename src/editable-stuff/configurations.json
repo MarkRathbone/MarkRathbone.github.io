@@ -36,7 +36,7 @@
   "gitHubLink": "https://api.github.com/users/",
   "gitHubUsername": "MarkRathbone",
   "gitHubQuerry": "/repos?sort=updated&direction=desc",
-  "projectsLength": 4,
+  "projectsLength": 6,
   "showNavigationbar": true,
   "showBlog": true
 }

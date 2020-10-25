@@ -16,7 +16,7 @@ jobs:
       - name: Remove files
         run: |
           rm -rf precache*
-          rm -rf resume.*
+          rm -rf resume*pdf
 
       - name: Commit removal
         run: |

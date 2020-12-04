@@ -33,16 +33,17 @@ jobs:
   
   build-and-deploy:
     runs-on: ubuntu-latest
-    steps:      
+    steps:
+      -  name: Environment Variables
+         env:
+           GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+           ACTIONS_ALLOW_UNSECURE_COMMANDS: True
+           
       - name: Checkout
         uses: actions/checkout@v2.3.1
         with:
           persist-credentials: false
           ref: master
-
-      - name: Env Variable
-        run: |
-          export ACTIONS_ALLOW_UNSECURE_COMMANDS=true
 
       - name: Install
         run: |

@@ -9,7 +9,7 @@ const mainBody = {
   firstName: "Mark",
   middleName: "Anthony",
   lastName: "Rathbone",
-  message: "| Bash | Python | Linux | Networking | Security | Cloud ",
+  message: " | Bash | Python | Linux | Networking | Security | Cloud | ",
   icons: [
     {
       image: "fa-github",

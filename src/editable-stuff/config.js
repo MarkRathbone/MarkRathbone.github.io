@@ -43,7 +43,7 @@ const mainBody = {
 const about = {
   show: true,
   heading: "About Me",
-  profilePictureLink: require("../editable-stuff/markrathbone.png"),
+  imageLink: require("../editable-stuff/markrathbone.png"),
   imageSize: 375,
   message:
     "I am a AWS and Microsoft Certified Cloud Practitioner graduate from the AWS/reStart program in Birmingham, UK, by Generation UK&I. I have over 5 years of experience working with hardware and I'm now looking for Junior-level work in Cloud. I'm currently very interested in continuing to develop my IAC and Cloud Analytics skills and starting to study about AI and Machine Learning.",

@@ -17,6 +17,7 @@ jobs:
         run: |
           rm -rf precache*
           rm -rf static/media/resume*
+          rm -rf static/media/markrathbone*
 
       - name: Commit removal
         run: |
@@ -38,6 +39,10 @@ jobs:
         with:
           persist-credentials: false
           ref: master
+
+      - name: Env Variable
+        run: |
+          export ACTIONS_ALLOW_UNSECURE_COMMANDS=true
 
       - name: Install
         run: |

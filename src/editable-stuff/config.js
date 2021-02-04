@@ -46,7 +46,7 @@ const about = {
   imageLink: require("../editable-stuff/markrathbone.png"),
   imageSize: 375,
   message:
-    "I am a AWS and Microsoft Certified Cloud Practitioner graduate from the AWS/reStart program in Birmingham, UK, by Generation UK&I. I have over 5 years of experience working with hardware and I'm now looking for Junior-level work in Cloud. I'm currently very interested in continuing to develop my IAC and Cloud Analytics skills and starting to study about AI and Machine Learning.",
+    "I am a AWS and Microsoft Certified Cloud Practitioner graduate from the AWS/reStart program in Birmingham, UK, by Generation UK&I. I have over 5 years of experience working with hardware and I'm currently employed as a Junior Cloud Engineer. I'm currently very interested in continuing to develop my IAC and Cloud Analytics skills and starting to study about AI and Machine Learning.",
   resume: require("../editable-stuff/resume.pdf"),
 };
 
@@ -117,7 +117,7 @@ const getInTouch = {
   show: true,
   heading: "Get In Touch",
   message:
-    "I'm currently looking for full-time junior level Cloud Engineering roles! If you know of any positions available, if you have any questions, or if you just want to say hi, please feel free to email me at",
+    "If you have any questions, or if you just want to say hi, please feel free to email me at",
   email: "MarkAnthonyRathbone@gmail.com",
 };
 

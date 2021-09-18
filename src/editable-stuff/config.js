@@ -46,7 +46,7 @@ const about = {
   imageLink: require("../editable-stuff/markrathbone.png"),
   imageSize: 375,
   message:
-    "I am a AWS Certified Solutions Architect and graduate from the AWS/reStart program in Birmingham, UK, by Generation UK&I. I have 10 years of experience working with hardware and I'm now looking for Junior-level work in Cloud. I'm currently continuing to develop my Cloud skills and starting to study about AI and Machine Learning.",
+    "I am a AWS Certified Solutions Architect, with Data Analytics and Machine Learning specialties. I am a graduate from the AWS/reStart program in Birmingham, UK, by Generation UK&I, where I first became aware of the Cloud IT Industry. I have 10 years of experience working with hardware and I'm currently employed as a Cloud Engineer for transACT Technology Solutions. I'm currently working on the curriculum for the AWS Certified Databases Speciality certification, and personally very interested in continuing to develop my IAC and Cloud Analytics skills and improve my skills in ML.",
   resume: require("../editable-stuff/resume.pdf"),
 };
 

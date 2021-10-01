@@ -97,7 +97,7 @@ const skills = {
     { name: "Linux", value: 75 },
     { name: "Networking", value: 60 },
     { name: "Security", value: 70 },
-    { name: "AWS", value: 90 },
+    { name: "AWS", value: 95 },
     { name: "Azure", value: 80 },
   ],
   softSkills: [

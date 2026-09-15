@@ -1,0 +1,32 @@
+{
+  "name": "mark-rathbone-portfolio",
+  "version": "3.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Mark Rathbone's portfolio and CV-as-code",
+  "packageManager": "npm@12.0.2",
+  "engines": {
+    "node": ">=24.21.0",
+    "npm": ">=12.0.2"
+  },
+  "scripts": {
+    "dev": "vite",
+    "generate:cv": "node scripts/generate-cv.mjs",
+    "build": "npm run generate:cv && vite build",
+    "preview": "vite preview",
+    "check": "node scripts/validate-cv.mjs && npm run build"
+  },
+  "dependencies": {
+    "js-yaml": "^5.4.2",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.1.1",
+    "puppeteer": "^25.11.0",
+    "vite": "^8.3.0"
+  },
+  "allowScripts": {
+    "puppeteer@25.11.0": true
+  }
+}

@@ -1,0 +1,182 @@
+# This file is the single source of truth for both the website and the PDF CV.
+# Keep the section names in place, edit the values, then run `npm run build`.
+personal:
+  name: Mark Rathbone
+  first_name: Mark
+  last_name: Rathbone
+  role: Lead DevOps Engineer
+  location: Stoke-on-Trent, United Kingdom
+  phone: "+44 7984 682775"
+  email: me@markrathbone.co.uk
+  website: https://markrathbone.co.uk
+  portrait: /mark-rathbone.jpg
+
+links:
+  - label: GitHub
+    url: https://github.com/MarkRathbone
+  - label: LinkedIn
+    url: https://www.linkedin.com/in/markanthonyrathbone/
+
+profile:
+  short: I lead platform engineering that helps teams ship reliably, scale confidently, and take ownership.
+  paragraphs:
+    - Lead DevOps and Platform Engineer with experience defining cloud strategy and building reliable, scalable platforms across AWS, Azure, and Kubernetes. Combines hands-on engineering in Go, Python, and Infrastructure as Code with technical leadership, mentoring, and a strong focus on developer experience.
+    - Experienced across the full infrastructure lifecycle, from strategy and design through to production operations. Partners with engineering teams, senior leaders, and suppliers to improve delivery predictability, strengthen internal capability, and build maintainable platforms aligned with product goals.
+
+skills:
+  - group: Cloud & platform
+    items:
+      - AWS cloud infrastructure
+      - Azure cloud infrastructure
+      - Kubernetes & container orchestration
+      - Platform engineering
+  - group: Delivery & reliability
+    items:
+      - CI/CD & deployment engineering
+      - Infrastructure as Code
+      - Observability & monitoring
+      - Linux systems & troubleshooting
+  - group: Leadership & engineering
+    items:
+      - DevOps & platform strategy
+      - Technical leadership & mentoring
+      - Stakeholder & supplier management
+      - Go
+      - Python
+
+experience:
+  - company: Clearcare Solutions
+    role: Lead DevOps Engineer
+    location: Stafford, United Kingdom
+    start: April 2026
+    end: Present
+    logo: /company-logos/clearcare.svg
+    summary: Leads DevOps strategy across AWS and Azure, strengthening platform reliability, delivery consistency, and engineering capability for software supporting children's social care.
+    highlights:
+      - Defined and implemented DevOps strategy across AWS and Azure, improving platform reliability and reducing deployment-related issues across environments.
+      - Designed and standardised CI/CD pipelines, reducing deployment times and enabling consistent multi-cloud releases.
+      - Led implementation of multi-cloud deployment patterns, improving system resilience and reducing single-cloud dependency risk.
+      - Partnered with senior leadership to align platform engineering with product delivery goals, improving release predictability and team efficiency.
+      - Mentored junior engineers and apprentices, accelerating onboarding and improving team capability and DevOps adoption.
+      - Managed third-party suppliers, improving service delivery and supporting the transition towards internal ownership.
+
+  - company: Searidge Technologies
+    role: Cloud Operations Engineer
+    location: Ottawa, Canada
+    start: October 2025
+    end: February 2026
+    logo: /company-logos/searidge.png
+    summary: Improved and stabilised CI/CD and infrastructure workflows within an AWS-based environment, focusing on consistency, automation, and maintainability.
+    highlights:
+      - Refactored GitLab CI/CD pipelines, defining a clearer architecture for future deployment workflows.
+      - Managed and evolved AWS infrastructure using Terraform, improving consistency and reducing configuration drift.
+      - Developed automation tooling to convert API definitions into Terraform, reducing manual provisioning effort.
+      - Supported Linux-based build agents and infrastructure tooling, resolving issues across scripting, permissions, and system configuration.
+    note: Role concluded due to organisational restructuring.
+
+  - company: Vitrifi
+    role: Software Engineer
+    location: London, United Kingdom
+    start: May 2025
+    end: August 2025
+    logo: /company-logos/vitrifi.jpg
+    summary: Worked on integrating software engineering practices into telco network environments, improving deployment workflows and system observability.
+    highlights:
+      - Applied technologies such as NETCONF, gNMI, and YANG to interact with and manage network infrastructure.
+      - Improved CI/CD pipelines to standardise deployments into AWS EKS, reducing operational complexity and improving reliability.
+      - Designed and implemented monitoring solutions using Prometheus and Grafana, increasing visibility into system performance and incidents.
+    note: Role concluded following company closure.
+
+  - company: PM Connect
+    role: DevOps Engineer
+    location: Birmingham, United Kingdom
+    start: November 2022
+    end: May 2025
+    logo: /company-logos/pm-connect.png
+    summary: Designed and operated Kubernetes-based platforms supporting scalable, highly available production systems, with a focus on reliability, automation, and developer experience.
+    highlights:
+      - Owned the lifecycle of EKS clusters, including CI/CD pipelines, autoscaling (KEDA), ingress (Traefik), and observability using Prometheus, Grafana, and Datadog.
+      - Led development of Kubernetes Operators in Go to manage AWS infrastructure, creating a unified control plane and reducing manual provisioning effort.
+      - Improved system reliability and reduced operational overhead by standardising infrastructure and deployment workflows.
+      - Architected CI/CD pipelines with integrated security scanning and automated deployments, improving consistency across environments.
+      - Built internal tooling in Go, Python, and Bash to streamline infrastructure provisioning and simplify platform usage for engineers.
+      - Contributed to platform standards and best practices, improving consistency and maintainability across teams.
+
+  - company: TransACT Technology Solutions
+    role: Cloud Engineer
+    location: London, United Kingdom
+    start: February 2021
+    end: November 2022
+    logo: /company-logos/transact.webp
+    summary: Designed and delivered AWS-based data pipelines and cloud solutions, supporting FinOps initiatives and improving scalability and reliability of data processing systems.
+    highlights:
+      - Built and evolved data pipelines for cost and usage reporting, improving performance and reliability of FinOps workflows.
+      - Delivered end-to-end cloud solutions from design through to production rollout for internal and customer-facing use cases.
+      - Worked across AWS services including Athena, Glue, EMR, Lambda, Redshift, and Step Functions to support data processing workloads.
+      - Implemented monitoring and alerting using CloudWatch, improving system visibility and operational stability.
+      - Contributed to AWS Service Delivery Program validation by aligning infrastructure and processes with AWS best practices.
+
+  - company: Generation UK & Ireland
+    role: AWS re/Start Graduate
+    location: Birmingham, United Kingdom
+    start: June 2020
+    end: September 2020
+    logo: /company-logos/generation.svg
+    summary: Completed an intensive cloud engineering programme covering AWS, Linux, and Python, building a strong foundation in cloud infrastructure and system operations.
+    highlights:
+      - Gained hands-on experience with core AWS services including EC2, S3, IAM, VPC, Lambda, RDS, and CloudFormation.
+      - Developed foundational skills in Linux, scripting, and cloud architecture.
+      - Built communication skills, including explaining technical concepts to non-technical stakeholders.
+
+earlier_experience:
+  - company: Fast Car Direct
+    role: Retail Staff
+    location: Walsall, United Kingdom
+    start: October 2017
+    end: May 2018
+  - company: Multimedia Café
+    role: Customer Support Assistant
+    location: Wolverhampton, United Kingdom
+    start: August 2009
+    end: October 2017
+
+certifications:
+  - title: Certified Database – Specialty
+    issuer: AWS
+    date: June 2022
+  - title: Certified Machine Learning – Specialty
+    issuer: AWS
+    date: September 2021
+  - title: Certified Data Analytics – Specialty
+    issuer: AWS
+    date: July 2021
+  - title: Certified Solutions Architect – Associate
+    issuer: AWS
+    date: April 2021
+  - title: Azure AI Fundamentals
+    issuer: Microsoft
+    date: March 2021
+  - title: Azure Fundamentals
+    issuer: Microsoft
+    date: October 2020
+
+selected_work:
+  - number: "01"
+    title: Multi-cloud platform strategy
+    description: Defined DevOps direction across AWS and Azure, aligning delivery standards, resilience, and platform ownership with product goals.
+    tags: [Leadership, AWS, Azure, CI/CD]
+  - number: "02"
+    title: Kubernetes as a control plane
+    description: Led development of Go-based Kubernetes Operators that managed AWS infrastructure behind a consistent, engineer-friendly interface.
+    tags: [Go, Kubernetes, AWS, EKS]
+  - number: "03"
+    title: FinOps data pipelines
+    description: Built AWS data workflows for cost and usage reporting, making cloud spend data faster, more reliable, and easier to act on.
+    tags: [Athena, Glue, EMR, Python]
+
+interests:
+  - Platform engineering
+  - Developer experience
+  - Distributed systems
+  - Drones
+  - Games

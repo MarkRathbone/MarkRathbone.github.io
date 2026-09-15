@@ -1,0 +1,47 @@
+# Dependencies and package-manager state
+/node_modules/
+/.pnp/
+.pnp.js
+/.npm/
+
+# Generated website and tool caches
+/dist/
+/build/
+/.cache/
+/.vite/
+/.puppeteer-cache/
+
+# Generated CV artifacts (created by GitHub Actions)
+/public/cv-data.json
+/public/mark-rathbone-cv.pdf
+/public/social-image.png
+
+# Local reference material and Pages-managed files
+/Mark Rathbone CV.pdf
+/public/CNAME
+
+# Test and diagnostic output
+/coverage/
+/test-results/
+/playwright-report/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+*.local
+
+# Editors and operating systems
+.DS_Store
+Thumbs.db
+Desktop.ini
+/.idea/
+/.vscode/
+*.swp
+*.swo
+*~

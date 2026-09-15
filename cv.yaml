@@ -21,7 +21,7 @@ profile:
   short: I lead platform and delivery engineering that helps teams build, test, and ship with confidence.
   paragraphs:
     - Lead DevOps and Platform Engineer with experience shaping cloud strategy and building the tooling, automation, and standards that help teams deliver reliable software. Combines hands-on engineering in Go, Python, GitHub Actions, GitLab CI/CD, and Infrastructure as Code with technical leadership, mentoring, and a strong focus on developer experience.
-    - Experienced across the full delivery lifecycle, from architecture and reusable platform capabilities through to testing, release, and production operations across AWS, Azure, and Kubernetes. Partners with engineering teams and senior leaders to turn recurring delivery problems into secure, maintainable solutions that teams can adopt without losing autonomy.
+    - Experienced across the full delivery lifecycle, from architecture and reusable platform capabilities through to testing, release, and production operations across AWS, Azure, and Kubernetes. Uses AI-assisted workflows selectively to accelerate development, review, testing, and documentation while retaining human ownership, validation, and secure engineering controls.
 
 skills:
   - group: Cloud & platform
@@ -37,6 +37,7 @@ skills:
       - Automated testing & quality gates
       - Terraform & Infrastructure as Code
       - Observability & monitoring
+      - Responsible AI-assisted engineering
   - group: Leadership & engineering
     items:
       - Platform & delivery strategy
@@ -59,7 +60,8 @@ experience:
       - Designed central release orchestration for coordinated multi-repository deployments, with validated manifests, deployment evidence, smoke checks, and dependable rollback paths.
       - Built self-service Go tooling for local setup, secure AWS access, diagnostics, and releases, reducing operational friction while retaining appropriate controls and auditability.
       - Codified multi-account AWS foundations and reusable environment infrastructure in Terraform, introducing explicit guardrails around identity, state, secrets, and immutable deployments.
-      - Raised engineering capability through automated tests, shared contracts, clear runbooks, code standards, and hands-on mentoring of junior engineers and apprentices.
+      - Established responsible AI-assisted development practices for implementation, code review, testing, documentation, and operational analysis, with human approval, validation, and security boundaries built into the workflow.
+      - Raised engineering capability through shared contracts, clear runbooks, code standards, and hands-on mentoring of junior engineers and apprentices.
 
   - company: Searidge Technologies
     role: Cloud Operations Engineer
@@ -101,7 +103,7 @@ experience:
       - Improved system reliability and reduced operational overhead by standardising infrastructure and deployment workflows.
       - Architected CI/CD pipelines with integrated security scanning and automated deployments, improving consistency across environments.
       - Built internal tooling in Go, Python, and Bash to streamline infrastructure provisioning and simplify platform usage for engineers.
-      - Contributed to platform standards and best practices, improving consistency and maintainability across teams.
+      - Adopted AI-assisted workflows for code exploration, implementation, review, test development, and documentation, using them as a supervised engineering aid with human review and secure handling of proprietary information.
 
   - company: TransACT Technology Solutions
     role: Cloud Engineer

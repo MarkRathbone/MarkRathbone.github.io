@@ -3,6 +3,9 @@ import { useEffect, useRef, useState } from "react";
 const Arrow = () => <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" /></svg>;
 const Download = () => <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0 5-5m-5 5-5-5M5 20h14" /></svg>;
 const External = () => <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 5h5v5M19 5l-9 9M18 13v6H5V6h6" /></svg>;
+const Moon = () => <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 15.2A8.2 8.2 0 0 1 8.8 4a8.2 8.2 0 1 0 11.2 11.2Z" /></svg>;
+const Sun = () => <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.5" /><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" /></svg>;
+const Horizon = () => <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3" /><path d="M3 12h4M17 12h4M5.5 6.5l2.8 2.8M15.7 14.7l2.8 2.8" /></svg>;
 
 function SectionTitle({ index, eyebrow, children }) {
   return (
@@ -15,19 +18,24 @@ function SectionTitle({ index, eyebrow, children }) {
 }
 
 function App({ cv }) {
-  const [alternate, setAlternate] = useState(false);
+  const [theme, setTheme] = useState(() => {
+    if (typeof window === "undefined") return "mid";
+    const savedMode = window.localStorage.getItem("theme-mode");
+    const legacyPalette = window.localStorage.getItem("palette");
+    if (["dark", "mid", "light"].includes(savedMode)) return savedMode;
+    return legacyPalette === "alternate" ? "dark" : "mid";
+  });
   const cursorGlow = useRef(null);
   const scrollProgress = useRef(null);
 
   useEffect(() => {
-    const saved = window.localStorage.getItem("palette") === "alternate";
-    setAlternate(saved);
-  }, []);
-
-  useEffect(() => {
-    document.documentElement.dataset.palette = alternate ? "alternate" : "default";
-    window.localStorage.setItem("palette", alternate ? "alternate" : "default");
-  }, [alternate]);
+    document.documentElement.dataset.theme = theme;
+    document.documentElement.style.colorScheme = theme === "light" ? "light" : "dark";
+    window.localStorage.setItem("theme-mode", theme);
+    window.localStorage.removeItem("palette");
+    const themeColours = { dark: "#10090b", mid: "#071120", light: "#f6edcf" };
+    document.querySelector('meta[name="theme-color"]')?.setAttribute("content", themeColours[theme]);
+  }, [theme]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -102,10 +110,11 @@ function App({ cv }) {
           <a href="#skills">Skills</a>
         </nav>
         <div className="nav-actions">
-          <button className="palette-button" onClick={() => setAlternate((value) => !value)} aria-label="Shift colour palette" aria-pressed={alternate}>
-            <span className="palette-swatches" aria-hidden="true"><i /><i /></span>
-            <span className="palette-name">Palette: {alternate ? "Crimson" : "Cobalt"}</span>
-          </button>
+          <div className="mode-picker" role="group" aria-label="Colour mode">
+            <button className={theme === "dark" ? "is-active" : ""} onClick={() => setTheme("dark")} aria-pressed={theme === "dark"} title="Use dark crimson mode"><Moon /><span>Dark</span></button>
+            <button className={theme === "mid" ? "is-active" : ""} onClick={() => setTheme("mid")} aria-pressed={theme === "mid"} title="Use mid cobalt mode"><Horizon /><span>Mid</span></button>
+            <button className={theme === "light" ? "is-active" : ""} onClick={() => setTheme("light")} aria-pressed={theme === "light"} title="Use light gold mode"><Sun /><span>Light</span></button>
+          </div>
           <a className="mini-cv" href="/mark-rathbone-cv.pdf" download>CV <Download /></a>
         </div>
       </header>
@@ -114,6 +123,10 @@ function App({ cv }) {
         <section className="hero" id="top">
           <div className="hero-ambient" aria-hidden="true">
             <span className="ambient-glow" />
+            <span className="ambient-ring ambient-ring-one" />
+            <span className="ambient-ring ambient-ring-two" />
+            <span className="ambient-comet ambient-comet-one" />
+            <span className="ambient-comet ambient-comet-two" />
             <i className="ambient-shard ambient-shard-one" />
             <i className="ambient-shard ambient-shard-two" />
             <i className="ambient-shard ambient-shard-three" />
@@ -247,6 +260,7 @@ function App({ cv }) {
             {cv.links.map((link) => <a href={link.url} target="_blank" rel="noreferrer" key={link.label}>{link.label}<External /></a>)}
             <a href="/mark-rathbone-cv.pdf" download>Download CV<Download /></a>
           </div>
+          <div className="contact-orbit" aria-hidden="true"><span /><i /><i /></div>
           <div className="contact-slash" aria-hidden="true" />
         </section>
       </main>

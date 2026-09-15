@@ -4,6 +4,22 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#071120" />
+    <script>
+      (() => {
+        try {
+          const savedMode = localStorage.getItem("theme-mode");
+          const legacyPalette = localStorage.getItem("palette");
+          const validModes = ["dark", "mid", "light"];
+          const mode = validModes.includes(savedMode) ? savedMode : (legacyPalette === "alternate" ? "dark" : "mid");
+          document.documentElement.dataset.theme = mode;
+          document.documentElement.style.colorScheme = mode === "light" ? "light" : "dark";
+          const themeColours = { dark: "#10090b", mid: "#071120", light: "#f6edcf" };
+          document.querySelector('meta[name="theme-color"]').content = themeColours[mode];
+        } catch (_) {
+          document.documentElement.dataset.theme = "mid";
+        }
+      })();
+    </script>
     <meta name="description" content="Mark Rathbone — Platform and DevOps Engineer building reliable cloud-native infrastructure." />
     <meta property="og:title" content="Mark Rathbone — Platform Engineer" />
     <meta property="og:description" content="Cloud platforms, Kubernetes, infrastructure as code, and developer experience." />

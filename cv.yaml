@@ -20,7 +20,7 @@ links:
 profile:
   short: I lead platform and delivery engineering that helps teams build, test, and ship with confidence.
   paragraphs:
-    - Lead DevOps and Platform Engineer with experience shaping cloud strategy and building the tooling, automation, and standards that help teams deliver reliable software. Combines hands-on engineering in Go, Python, GitHub Actions, and Infrastructure as Code with technical leadership, mentoring, and a strong focus on developer experience.
+    - Lead DevOps and Platform Engineer with experience shaping cloud strategy and building the tooling, automation, and standards that help teams deliver reliable software. Combines hands-on engineering in Go, Python, GitHub Actions, GitLab CI/CD, and Infrastructure as Code with technical leadership, mentoring, and a strong focus on developer experience.
     - Experienced across the full delivery lifecycle, from architecture and reusable platform capabilities through to testing, release, and production operations across AWS, Azure, and Kubernetes. Partners with engineering teams and senior leaders to turn recurring delivery problems into secure, maintainable solutions that teams can adopt without losing autonomy.
 
 skills:
@@ -33,6 +33,7 @@ skills:
   - group: Delivery & reliability
     items:
       - GitHub Actions & release engineering
+      - GitLab CI/CD
       - Automated testing & quality gates
       - Terraform & Infrastructure as Code
       - Observability & monitoring

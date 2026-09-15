@@ -160,6 +160,9 @@ function App({ cv }) {
         </section>
 
         <section className="work section-pad" id="work">
+          <div className="section-motif work-motif" aria-hidden="true">
+            <span /><span /><i /><b />
+          </div>
           <SectionTitle index="01" eyebrow="Selected operations">Systems I’ve helped ship</SectionTitle>
           <div className="work-grid">
             {cv.selected_work.map((item, index) => (
@@ -175,6 +178,9 @@ function App({ cv }) {
         </section>
 
         <section className="experience section-pad" id="experience">
+          <div className="section-motif signal-motif" aria-hidden="true">
+            <span /><i /><i /><i /><i />
+          </div>
           <SectionTitle index="02" eyebrow="Experience">The route so far</SectionTitle>
           <div className="timeline">
             {cv.experience.map((role, index) => (
@@ -208,6 +214,9 @@ function App({ cv }) {
         </section>
 
         <section className="skills section-pad" id="skills">
+          <div className="section-motif skills-motif" aria-hidden="true">
+            <span /><span /><i />
+          </div>
           <SectionTitle index="03" eyebrow="Capabilities">Tools of the trade</SectionTitle>
           <div className="skill-layout">
             <div className="skill-groups">

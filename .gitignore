@@ -14,6 +14,7 @@
 # Generated CV artifacts (created by GitHub Actions)
 /public/cv-data.json
 /public/mark-rathbone-cv.pdf
+/public/mark-rathbone-cv-*.pdf
 /public/social-image.png
 
 # Local reference material and Pages-managed files

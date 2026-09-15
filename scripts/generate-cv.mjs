@@ -6,7 +6,26 @@ import puppeteer from "puppeteer";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const cv = loadYaml(fs.readFileSync(path.join(root, "cv.yaml"), "utf8"));
-const output = path.join(root, "public", "mark-rathbone-cv.pdf");
+const cvThemes = {
+  dark: {
+    filename: "mark-rathbone-cv-crimson.pdf",
+    page: "#140b0e", text: "#d0bec1", heading: "#fff1ea", accent: "#e12b46",
+    highlight: "#edb92f", sidebar: "#090708", sidebarText: "#fffaf1", muted: "#a99196",
+    line: "#432a30", logoLine: "#5a3b42", photo: "#090708", portraitFilter: "grayscale(.8) contrast(1.13)",
+  },
+  mid: {
+    filename: "mark-rathbone-cv-cobalt.pdf",
+    page: "#ffffff", text: "#243044", heading: "#172843", accent: "#317dce",
+    highlight: "#f1d74c", sidebar: "#10213c", sidebarText: "#ffffff", muted: "#687487",
+    line: "#d8dee8", logoLine: "#d9e0e9", photo: "#11203a", portraitFilter: "saturate(.75) contrast(1.05)",
+  },
+  light: {
+    filename: "mark-rathbone-cv-gold.pdf",
+    page: "#fffdf4", text: "#4e4328", heading: "#2c220c", accent: "#c48700",
+    highlight: "#ffda32", sidebar: "#3b2c0a", sidebarText: "#fff9df", muted: "#786a45",
+    line: "#e4d7ac", logoLine: "#e5d7a8", photo: "#3b2c0a", portraitFilter: "sepia(.12) saturate(.85) contrast(1.06)",
+  },
+};
 const portraitPath = path.join(root, "public", cv.personal.portrait.replace(/^\//, ""));
 const portrait = `data:image/jpeg;base64,${fs.readFileSync(portraitPath).toString("base64")}`;
 const assetDataUri = (assetPath) => {
@@ -40,59 +59,65 @@ const firstSkills = cv.skills.flatMap((group) => group.items);
 const pageOneRoles = cv.experience.slice(0, 3).map((item) => role(item)).join("");
 const pageTwoRoles = cv.experience.slice(3).map((item) => role(item)).join("");
 
-const html = `<!doctype html><html><head><meta charset="utf-8"><style>
+const cvHtml = (theme) => `<!doctype html><html><head><meta charset="utf-8"><style>
+  :root {
+    --page: ${theme.page}; --text: ${theme.text}; --heading: ${theme.heading}; --accent: ${theme.accent};
+    --highlight: ${theme.highlight}; --sidebar: ${theme.sidebar}; --sidebar-text: ${theme.sidebarText};
+    --muted: ${theme.muted}; --line: ${theme.line}; --logo-line: ${theme.logoLine}; --photo: ${theme.photo};
+    --portrait-filter: ${theme.portraitFilter};
+  }
   @page { size: A4; margin: 0; }
   * { box-sizing: border-box; }
-  html, body { margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif; color: #243044; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-  .page { width: 210mm; height: 297mm; overflow: hidden; position: relative; background: white; page-break-after: always; }
+  html, body { margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif; color: var(--text); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .page { width: 210mm; height: 297mm; overflow: hidden; position: relative; background: var(--page); page-break-after: always; }
   .page:last-child { page-break-after: auto; }
   .cover { display: grid; grid-template-columns: 61mm 1fr; grid-template-rows: 54mm 1fr; }
-  .photo { background: #11203a; overflow: hidden; }
-  .photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 31%; filter: saturate(.75) contrast(1.05); }
-  .intro { padding: 11mm 13mm 5mm; border-bottom: 1px solid #d7deea; }
-  .name { margin: 0; font-size: 27pt; line-height: .9; letter-spacing: -1.7px; color: #12213c; }
-  .name span { color: #2d76c9; }
-  .title { margin: 3mm 0 3mm; font-size: 10.5pt; font-weight: 700; color: #2d76c9; }
-  .summary { margin: 0; font-size: 7.4pt; line-height: 1.4; color: #4d5869; }
-  aside { padding: 9mm 7mm; background: #10213c; color: white; }
+  .photo { background: var(--photo); overflow: hidden; }
+  .photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 31%; filter: var(--portrait-filter); }
+  .intro { padding: 11mm 13mm 5mm; border-bottom: 1px solid var(--line); }
+  .name { margin: 0; font-size: 27pt; line-height: .9; letter-spacing: -1.7px; color: var(--heading); }
+  .name span { color: var(--accent); }
+  .title { margin: 3mm 0 3mm; font-size: 10.5pt; font-weight: 700; color: var(--accent); }
+  .summary { margin: 0; font-size: 7.4pt; line-height: 1.4; color: var(--text); }
+  aside { padding: 9mm 7mm; background: var(--sidebar); color: var(--sidebar-text); }
   aside section { margin-bottom: 8mm; }
-  h2 { margin: 0 0 3.5mm; padding-bottom: 1.8mm; border-bottom: 1.5px solid #317dce; color: #182943; font-size: 9.5pt; letter-spacing: .6px; text-transform: uppercase; }
-  aside h2 { color: white; border-color: #f1d74c; }
+  h2 { margin: 0 0 3.5mm; padding-bottom: 1.8mm; border-bottom: 1.5px solid var(--accent); color: var(--heading); font-size: 9.5pt; letter-spacing: .6px; text-transform: uppercase; }
+  aside h2 { color: var(--sidebar-text); border-color: var(--highlight); }
   .contact-item { margin: 0 0 3mm; font-size: 7pt; line-height: 1.35; overflow-wrap: anywhere; }
-  .contact-item b { display: block; margin-bottom: .4mm; color: #f1d74c; font-size: 5.5pt; letter-spacing: .6px; text-transform: uppercase; }
-  .contact-item a { color: white; text-decoration: none; }
+  .contact-item b { display: block; margin-bottom: .4mm; color: var(--highlight); font-size: 5.5pt; letter-spacing: .6px; text-transform: uppercase; }
+  .contact-item a { color: var(--sidebar-text); text-decoration: none; }
   .contact-links { display: flex; flex-wrap: wrap; gap: 1mm 2.5mm; }
   aside ul { list-style: none; margin: 0; padding: 0; }
   aside li { position: relative; margin: 0 0 2.2mm; padding-left: 4mm; font-size: 6.8pt; line-height: 1.25; }
-  aside li::before { content: "◆"; position: absolute; left: 0; color: #f1d74c; font-size: 4.5pt; }
+  aside li::before { content: "◆"; position: absolute; left: 0; color: var(--highlight); font-size: 4.5pt; }
   .experience { padding: 8mm 12mm 7mm; }
   .role { margin-bottom: 4.5mm; break-inside: avoid; }
   .role-heading { display: flex; align-items: center; gap: 2.5mm; margin-bottom: .8mm; }
-  .role-logo { width: 9mm; height: 9mm; flex: 0 0 9mm; display: grid; place-items: center; overflow: hidden; border: .2mm solid #d9e0e9; background: white; }
+  .role-logo { width: 9mm; height: 9mm; flex: 0 0 9mm; display: grid; place-items: center; overflow: hidden; border: .2mm solid var(--logo-line); background: white; }
   .role-logo img { display: block; width: 82%; height: 82%; object-fit: contain; }
-  .role h3 { margin: 0; color: #172843; font-size: 8.5pt; line-height: 1.25; }
-  .role h3 span { color: #3974b6; font-weight: 600; }
-  .role .date { margin: .6mm 0 0; color: #687487; font-size: 6.6pt; font-weight: 700; }
+  .role h3 { margin: 0; color: var(--heading); font-size: 8.5pt; line-height: 1.25; }
+  .role h3 span { color: var(--accent); font-weight: 600; }
+  .role .date { margin: .6mm 0 0; color: var(--muted); font-size: 6.6pt; font-weight: 700; }
   .role > p:not(.date):not(.note) { margin: 0 0 1.7mm; font-size: 6.75pt; line-height: 1.35; }
   .role ul { margin: 0; padding-left: 4mm; }
   .role li { margin-bottom: 1mm; padding-left: .6mm; font-size: 6.45pt; line-height: 1.3; }
-  .role li::marker { color: #317dce; }
-  .role .note { margin: 1.2mm 0 0; color: #5e6b7e; font-size: 6.2pt; font-style: italic; }
+  .role li::marker { color: var(--accent); }
+  .role .note { margin: 1.2mm 0 0; color: var(--muted); font-size: 6.2pt; font-style: italic; }
   .page-two { padding: 11mm 14mm 9mm; }
-  .page-two::before { content: "MR / CV"; position: absolute; top: 4mm; right: 14mm; color: #96a1af; font-size: 5.5pt; font-weight: bold; letter-spacing: 1px; }
+  .page-two::before { content: "MR / CV"; position: absolute; top: 4mm; right: 14mm; color: var(--muted); font-size: 5.5pt; font-weight: bold; letter-spacing: 1px; }
   .page-two .experience { padding: 0; }
   .page-two .role { margin-bottom: 4mm; }
-  .page-two .continued { padding-bottom: 3mm; border-bottom: 1px solid #d5dce6; }
-  .page-two .continued::before { content: "PM CONNECT — CONTINUED"; display: block; margin-bottom: 2mm; color: #317dce; font-size: 5.8pt; font-weight: 700; letter-spacing: .6px; }
+  .page-two .continued { padding-bottom: 3mm; border-bottom: 1px solid var(--line); }
+  .page-two .continued::before { content: "PM CONNECT — CONTINUED"; display: block; margin-bottom: 2mm; color: var(--accent); font-size: 5.8pt; font-weight: 700; letter-spacing: .6px; }
   .page-two .continued h3, .page-two .continued .date { display: none; }
   .bottom-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 10mm; margin-top: 4mm; }
   .compact-role { margin: 0 0 3mm; }
   .compact-role strong { display: block; font-size: 7pt; }
-  .compact-role span { font-size: 6.3pt; color: #657185; }
-  .cert { display: grid; grid-template-columns: 1fr auto; gap: 1mm 4mm; padding: 1.3mm 0; border-bottom: 1px solid #e0e5ec; font-size: 6.4pt; }
-  .cert b { color: #1d3150; }
-  .cert span { color: #687487; }
-  .footer { position: absolute; left: 14mm; right: 14mm; bottom: 5mm; display: flex; justify-content: space-between; border-top: 1px solid #d8dee8; padding-top: 2mm; color: #7b8593; font-size: 5.5pt; }
+  .compact-role span { font-size: 6.3pt; color: var(--muted); }
+  .cert { display: grid; grid-template-columns: 1fr auto; gap: 1mm 4mm; padding: 1.3mm 0; border-bottom: 1px solid var(--line); font-size: 6.4pt; }
+  .cert b { color: var(--heading); }
+  .cert span { color: var(--muted); }
+  .footer { position: absolute; left: 14mm; right: 14mm; bottom: 5mm; display: flex; justify-content: space-between; border-top: 1px solid var(--line); padding-top: 2mm; color: var(--muted); font-size: 5.5pt; }
 </style></head><body>
   <section class="page cover">
     <div class="photo"><img src="${portrait}" /></div>
@@ -125,26 +150,36 @@ const html = `<!doctype html><html><head><meta charset="utf-8"><style>
 fs.writeFileSync(path.join(root, "public", "cv-data.json"), `${JSON.stringify(cv, null, 2)}\n`);
 const browser = await puppeteer.launch({ headless: true, args: ["--no-sandbox", "--disable-setuid-sandbox"] });
 const page = await browser.newPage();
-await page.setContent(html, { waitUntil: "load" });
-const layoutIssues = await page.evaluate(() => {
-  const issues = [];
-  document.querySelectorAll(".page").forEach((sheet, pageIndex) => {
-    const sheetBottom = sheet.getBoundingClientRect().bottom;
-    sheet.querySelectorAll(".role, .bottom-grid").forEach((element) => {
-      if (element.getBoundingClientRect().bottom > sheetBottom + 1) {
-        issues.push(`page ${pageIndex + 1}: ${element.className} is clipped`);
-      }
+const generatedPdfs = [];
+for (const [themeName, theme] of Object.entries(cvThemes)) {
+  await page.setContent(cvHtml(theme), { waitUntil: "load" });
+  const layoutIssues = await page.evaluate(() => {
+    const issues = [];
+    document.querySelectorAll(".page").forEach((sheet, pageIndex) => {
+      const sheetBottom = sheet.getBoundingClientRect().bottom;
+      sheet.querySelectorAll(".role, .bottom-grid").forEach((element) => {
+        if (element.getBoundingClientRect().bottom > sheetBottom + 1) {
+          issues.push(`page ${pageIndex + 1}: ${element.className} is clipped`);
+        }
+      });
     });
+    const bottomGrid = document.querySelector(".page-two .bottom-grid");
+    const footer = document.querySelector(".page-two .footer");
+    if (bottomGrid && footer && bottomGrid.getBoundingClientRect().bottom > footer.getBoundingClientRect().top) {
+      issues.push("page 2: experience/certification content overlaps the footer");
+    }
+    return issues;
   });
-  const bottomGrid = document.querySelector(".page-two .bottom-grid");
-  const footer = document.querySelector(".page-two .footer");
-  if (bottomGrid && footer && bottomGrid.getBoundingClientRect().bottom > footer.getBoundingClientRect().top) {
-    issues.push("page 2: experience/certification content overlaps the footer");
+  if (layoutIssues.length) {
+    throw new Error(`CV layout check failed for ${themeName}:\n${layoutIssues.join("\n")}`);
   }
-  return issues;
-});
-if (layoutIssues.length) throw new Error(`CV layout check failed:\n${layoutIssues.join("\n")}`);
-await page.pdf({ path: output, format: "A4", printBackground: true, preferCSSPageSize: true });
+  const output = path.join(root, "public", theme.filename);
+  await page.pdf({ path: output, format: "A4", printBackground: true, preferCSSPageSize: true });
+  generatedPdfs.push(`public/${theme.filename}`);
+  if (themeName === "mid") {
+    fs.copyFileSync(output, path.join(root, "public", "mark-rathbone-cv.pdf"));
+  }
+}
 
 const social = await browser.newPage();
 await social.setViewport({ width: 1200, height: 630, deviceScaleFactor: 1 });
@@ -164,4 +199,4 @@ await social.setContent(`<!doctype html><style>
 </style><main><div class="grid"></div><div class="copy"><p class="kicker">Platform / DevOps / Cloud</p><h1><span>${esc(cv.personal.first_name)}</span><br>${esc(cv.personal.last_name)}</h1><p class="role">${esc(cv.personal.role)} <b>↗</b></p></div><img class="portrait" src="${portrait}"><div class="mark">MR / 01</div></main>`, { waitUntil: "load" });
 await social.screenshot({ path: path.join(root, "public", "social-image.png"), type: "png" });
 await browser.close();
-console.log(`Generated ${path.relative(root, output)} and public/social-image.png`);
+console.log(`Generated ${generatedPdfs.join(", ")}, public/mark-rathbone-cv.pdf, and public/social-image.png`);

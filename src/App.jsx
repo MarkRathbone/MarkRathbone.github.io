@@ -27,6 +27,11 @@ function App({ cv }) {
   });
   const cursorGlow = useRef(null);
   const scrollProgress = useRef(null);
+  const cvDownload = {
+    dark: "/mark-rathbone-cv-crimson.pdf",
+    mid: "/mark-rathbone-cv-cobalt.pdf",
+    light: "/mark-rathbone-cv-gold.pdf",
+  }[theme];
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
@@ -115,7 +120,7 @@ function App({ cv }) {
             <button className={theme === "mid" ? "is-active" : ""} onClick={() => setTheme("mid")} aria-pressed={theme === "mid"} title="Use mid cobalt mode"><Horizon /><span>Mid</span></button>
             <button className={theme === "light" ? "is-active" : ""} onClick={() => setTheme("light")} aria-pressed={theme === "light"} title="Use light gold mode"><Sun /><span>Light</span></button>
           </div>
-          <a className="mini-cv" href="/mark-rathbone-cv.pdf" download>CV <Download /></a>
+          <a className="mini-cv" href={cvDownload} download>CV <Download /></a>
         </div>
       </header>
 
@@ -258,7 +263,7 @@ function App({ cv }) {
           <a className="contact-email reveal" href={`mailto:${cv.personal.email}`}>{cv.personal.email}<Arrow /></a>
           <div className="contact-links">
             {cv.links.map((link) => <a href={link.url} target="_blank" rel="noreferrer" key={link.label}>{link.label}<External /></a>)}
-            <a href="/mark-rathbone-cv.pdf" download>Download CV<Download /></a>
+            <a href={cvDownload} download>Download CV<Download /></a>
           </div>
           <div className="contact-orbit" aria-hidden="true"><span /><i /><i /></div>
           <div className="contact-slash" aria-hidden="true" />

@@ -268,7 +268,7 @@ footer .monogram { color: var(--white); font: 900 1.2rem var(--display); }
   .hero { height: auto; min-height: 100svh; display: flex; flex-direction: column; align-items: stretch; gap: 3rem; padding: 8.5rem 1.25rem 5rem; }
   .hero::before { inset: 0 0 40% 0; clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%); }
   .hero-grid { inset: 76px 0 40%; }
-  .hero h1 { font-size: clamp(4rem, 21vw, 7rem); }
+  .hero h1 { font-size: min(17vw, 4.6rem); line-height: .82; letter-spacing: -.085em; }
   .hero-visual { width: min(82vw, 380px); align-self: center; }
   .scroll-cue { display: none; }
   .section-pad { padding: 5rem 1.25rem; }
@@ -279,7 +279,11 @@ footer .monogram { color: var(--white); font: 900 1.2rem var(--display); }
   .section-title { grid-template-columns: auto 1fr; }
   .section-line { display: none; }
   .work-grid { display: block; }
-  .work-card { min-height: 390px; margin-bottom: 1rem; }
+  .work-card { min-height: 0; height: auto; margin-bottom: 1rem; padding: 1.75rem; }
+  .work-card .work-symbol { margin: 3rem 0 2.5rem; font-size: 5.2rem; }
+  .work-card h3 { margin-top: 0; font-size: clamp(1.45rem, 7.2vw, 1.85rem); }
+  .work-card p { margin-bottom: 1.25rem; }
+  .work-motif { display: none; }
   .timeline-entry { grid-template-columns: 40px 1fr; }
   .timeline-date { grid-column: 2; margin: .5rem 0 1.5rem; }
   .timeline-copy { grid-column: 2; }

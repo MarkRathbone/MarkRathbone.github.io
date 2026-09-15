@@ -18,10 +18,10 @@ links:
     url: https://www.linkedin.com/in/markanthonyrathbone/
 
 profile:
-  short: I lead platform engineering that helps teams ship reliably, scale confidently, and take ownership.
+  short: I lead platform and delivery engineering that helps teams build, test, and ship with confidence.
   paragraphs:
-    - Lead DevOps and Platform Engineer with experience defining cloud strategy and building reliable, scalable platforms across AWS, Azure, and Kubernetes. Combines hands-on engineering in Go, Python, and Infrastructure as Code with technical leadership, mentoring, and a strong focus on developer experience.
-    - Experienced across the full infrastructure lifecycle, from strategy and design through to production operations. Partners with engineering teams, senior leaders, and suppliers to improve delivery predictability, strengthen internal capability, and build maintainable platforms aligned with product goals.
+    - Lead DevOps and Platform Engineer with experience shaping cloud strategy and building the tooling, automation, and standards that help teams deliver reliable software. Combines hands-on engineering in Go, Python, GitHub Actions, and Infrastructure as Code with technical leadership, mentoring, and a strong focus on developer experience.
+    - Experienced across the full delivery lifecycle, from architecture and reusable platform capabilities through to testing, release, and production operations across AWS, Azure, and Kubernetes. Partners with engineering teams and senior leaders to turn recurring delivery problems into secure, maintainable solutions that teams can adopt without losing autonomy.
 
 skills:
   - group: Cloud & platform
@@ -32,13 +32,13 @@ skills:
       - Platform engineering
   - group: Delivery & reliability
     items:
-      - CI/CD & deployment engineering
-      - Infrastructure as Code
+      - GitHub Actions & release engineering
+      - Automated testing & quality gates
+      - Terraform & Infrastructure as Code
       - Observability & monitoring
-      - Linux systems & troubleshooting
   - group: Leadership & engineering
     items:
-      - DevOps & platform strategy
+      - Platform & delivery strategy
       - Technical leadership & mentoring
       - Stakeholder & supplier management
       - Go
@@ -51,14 +51,14 @@ experience:
     start: April 2026
     end: Present
     logo: /company-logos/clearcare.svg
-    summary: Leads DevOps strategy across AWS and Azure, strengthening platform reliability, delivery consistency, and engineering capability for software supporting children's social care.
+    summary: Leads platform and delivery engineering across AWS and Azure, building internal capabilities that make software delivery safer, more consistent, and easier for teams to own.
     highlights:
-      - Defined and implemented DevOps strategy across AWS and Azure, improving platform reliability and reducing deployment-related issues across environments.
-      - Designed and standardised CI/CD pipelines, reducing deployment times and enabling consistent multi-cloud releases.
-      - Led implementation of multi-cloud deployment patterns, improving system resilience and reducing single-cloud dependency risk.
-      - Partnered with senior leadership to align platform engineering with product delivery goals, improving release predictability and team efficiency.
-      - Mentored junior engineers and apprentices, accelerating onboarding and improving team capability and DevOps adoption.
-      - Managed third-party suppliers, improving service delivery and supporting the transition towards internal ownership.
+      - Set platform and delivery strategy with senior leadership, balancing immediate product needs with a maintainable roadmap across AWS and Azure.
+      - Established an internal developer platform spanning Go services and tooling, GitHub Actions, and Terraform, giving engineers consistent paths through common operational workflows.
+      - Designed central release orchestration for coordinated multi-repository deployments, with validated manifests, deployment evidence, smoke checks, and dependable rollback paths.
+      - Built self-service Go tooling for local setup, secure AWS access, diagnostics, and releases, reducing operational friction while retaining appropriate controls and auditability.
+      - Codified multi-account AWS foundations and reusable environment infrastructure in Terraform, introducing explicit guardrails around identity, state, secrets, and immutable deployments.
+      - Raised engineering capability through automated tests, shared contracts, clear runbooks, code standards, and hands-on mentoring of junior engineers and apprentices.
 
   - company: Searidge Technologies
     role: Cloud Operations Engineer
@@ -162,9 +162,9 @@ certifications:
 
 selected_work:
   - number: "01"
-    title: Multi-cloud platform strategy
-    description: Defined DevOps direction across AWS and Azure, aligning delivery standards, resilience, and platform ownership with product goals.
-    tags: [Leadership, AWS, Azure, CI/CD]
+    title: Internal developer platform
+    description: Built reusable Go tooling, Terraform modules, and release automation that turn operational workflows into secure, testable self-service capabilities.
+    tags: [Go, GitHub Actions, Terraform, AWS]
   - number: "02"
     title: Kubernetes as a control plane
     description: Led development of Go-based Kubernetes Operators that managed AWS infrastructure behind a consistent, engineer-friendly interface.

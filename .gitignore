@@ -19,6 +19,7 @@
 # Local reference material and Pages-managed files
 /Mark Rathbone CV.pdf
 /public/CNAME
+/*.zip
 
 # Test and diagnostic output
 /coverage/

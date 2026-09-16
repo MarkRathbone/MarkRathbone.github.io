@@ -48,9 +48,9 @@ career_arc:
   - period: 2022–2025
     title: Scale the platform
     description: Deepened into Kubernetes, EKS, Go operators, observability, and developer tooling, turning repeated infrastructure work into reusable platform capabilities.
-  - period: 2025–Now
+  - period: 2026–Now
     title: Lead the system
-    description: Owns platform direction, delivery engineering, release safety, and responsible innovation while connecting technical experiments and engineering decisions to product, customer, and business outcomes.
+    description: Since joining Clearcare, owns platform direction, delivery engineering, release safety, and responsible innovation while connecting technical experiments and engineering decisions to product, customer, and business outcomes.
 
 skills:
   - group: Cloud & platform

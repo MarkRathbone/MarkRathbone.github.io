@@ -184,6 +184,7 @@ function App({ cv }) {
             <span>Based in</span><strong>{cv.personal.location}</strong>
             <span>Focus</span><strong>Cloud-native infrastructure</strong>
             <span>Approach</span><strong>Pragmatic by default</strong>
+            <span>Mindset</span><strong>Experiment, validate, scale</strong>
           </div>
         </section>
 

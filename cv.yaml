@@ -21,7 +21,7 @@ profile:
   short: I lead platform and delivery engineering that helps teams build, test, and ship with confidence.
   paragraphs:
     - Lead DevOps and Platform Engineer with over six years of experience shaping cloud strategy and building the tooling, automation, and standards that help teams deliver reliable software. Combines hands-on engineering in Go, Python, GitHub Actions, GitLab CI/CD, and Infrastructure as Code with technical leadership, mentoring, and a strong focus on developer experience.
-    - Experienced across the full delivery lifecycle, from architecture and reusable platform capabilities through to testing, release, and production operations across AWS, Azure, and Kubernetes. Uses AI-assisted workflows selectively to accelerate development, review, testing, and documentation while retaining human ownership, validation, and secure engineering controls.
+    - Experienced across the full delivery lifecycle, from architecture and reusable platform capabilities through to testing, release, and production operations across AWS, Azure, and Kubernetes. Uses AI-assisted workflows selectively to accelerate development, review, testing, and documentation while retaining human ownership, validation, and secure engineering controls. Champions disciplined experimentation, testing emerging approaches in bounded ways and turning proven ideas into secure, reusable practices.
 
 impact_metrics:
   - key: experience
@@ -50,7 +50,7 @@ career_arc:
     description: Deepened into Kubernetes, EKS, Go operators, observability, and developer tooling, turning repeated infrastructure work into reusable platform capabilities.
   - period: 2025–Now
     title: Lead the system
-    description: Owns platform direction, delivery engineering, release safety, and responsible AI adoption while connecting engineering decisions to product, customer, and business outcomes.
+    description: Owns platform direction, delivery engineering, release safety, and responsible innovation while connecting technical experiments and engineering decisions to product, customer, and business outcomes.
 
 skills:
   - group: Cloud & platform
@@ -71,6 +71,7 @@ skills:
     items:
       - Platform & delivery strategy
       - Technical leadership & mentoring
+      - Innovation, prototyping & adoption
       - Stakeholder & supplier management
       - Go
       - Python

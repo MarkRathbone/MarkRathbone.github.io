@@ -28,32 +28,33 @@ const cvThemes = {
 };
 const portraitPath = path.join(root, "public", cv.personal.portrait.replace(/^\//, ""));
 const portrait = `data:image/jpeg;base64,${fs.readFileSync(portraitPath).toString("base64")}`;
+const embeddedAssets = new Map();
 const assetDataUri = (assetPath) => {
   if (!assetPath) return "";
+  if (embeddedAssets.has(assetPath)) return embeddedAssets.get(assetPath);
   const filePath = path.join(root, "public", assetPath.replace(/^\//, ""));
   const mime = ({ ".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".png": "image/png", ".svg": "image/svg+xml", ".webp": "image/webp" })[path.extname(filePath).toLowerCase()];
   if (!mime || !fs.existsSync(filePath)) throw new Error(`Missing or unsupported CV asset: ${assetPath}`);
-  return `data:${mime};base64,${fs.readFileSync(filePath).toString("base64")}`;
+  const dataUri = `data:${mime};base64,${fs.readFileSync(filePath).toString("base64")}`;
+  embeddedAssets.set(assetPath, dataUri);
+  return dataUri;
 };
 
 const esc = (value = "") => String(value).replace(/[&<>"']/g, (character) => ({
   "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;",
 }[character]));
 const list = (items) => `<ul>${items.map((item) => `<li>${esc(item)}</li>`).join("")}</ul>`;
-const role = (item, options = {}) => {
-  const highlights = options.highlights ?? item.highlights ?? [];
-  return `<article class="role ${options.continued ? "continued" : ""}">
+const role = (item) => `<article class="role">
     <div class="role-heading">
       ${item.logo ? `<span class="role-logo"><img src="${assetDataUri(item.logo)}" alt="" /></span>` : ""}
       <div><h3>${esc(item.role)} <span>| ${esc(item.company)}, ${esc(item.location)}</span></h3>
-    <p class="date">${esc(item.start)} — ${esc(item.end)}</p>
+        <p class="date">${esc(item.start)} — ${esc(item.end)}</p>
       </div>
     </div>
-    ${options.continued ? "" : `<p>${esc(item.summary)}</p>`}
-    ${list(highlights)}
-    ${item.note && !options.continued ? `<p class="note">${esc(item.note)}</p>` : ""}
+    <p>${esc(item.summary)}</p>
+    ${list(item.highlights)}
+    ${item.note ? `<p class="note">${esc(item.note)}</p>` : ""}
   </article>`;
-};
 
 const firstSkills = cv.skills.flatMap((group) => group.items);
 const pageOneRoles = cv.experience.slice(0, 3).map((item) => role(item)).join("");
@@ -112,9 +113,6 @@ const cvHtml = (theme) => `<!doctype html><html><head><meta charset="utf-8">
   .page-two::before { content: "MR / CV"; position: absolute; top: 4mm; right: 14mm; color: var(--muted); font-size: 5.5pt; font-weight: bold; letter-spacing: 1px; }
   .page-two .experience { padding: 0; }
   .page-two .role { margin-bottom: 4mm; }
-  .page-two .continued { padding-bottom: 3mm; border-bottom: 1px solid var(--line); }
-  .page-two .continued::before { content: "PM CONNECT — CONTINUED"; display: block; margin-bottom: 2mm; color: var(--accent); font-size: 5.8pt; font-weight: 700; letter-spacing: .6px; }
-  .page-two .continued h3, .page-two .continued .date { display: none; }
   .bottom-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 10mm; margin-top: 4mm; }
   .compact-role { margin: 0 0 3mm; }
   .compact-role strong { display: block; font-size: 7pt; }

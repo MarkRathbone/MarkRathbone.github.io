@@ -11,7 +11,7 @@ Every CV section has a named YAML block:
 - `skills`
 - `experience` and `earlier_experience`
 - `certifications`
-- `selected_work` and `interests`
+- `selected_work`
 
 Keep the indentation consistent (two spaces) and preserve the section names. Text containing a colon should be wrapped in quotes.
 

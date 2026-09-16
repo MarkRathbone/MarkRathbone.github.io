@@ -2,40 +2,81 @@ import fs from "node:fs";
 import { load as loadYaml } from "js-yaml";
 
 const cv = loadYaml(fs.readFileSync(new URL("../cv.yaml", import.meta.url), "utf8"));
-const required = ["personal", "profile", "current_role_impact", "career_arc", "skills", "experience", "certifications"];
+const required = [
+  "personal",
+  "links",
+  "profile",
+  "current_role_impact",
+  "career_arc",
+  "skills",
+  "experience",
+  "earlier_experience",
+  "certifications",
+  "selected_work",
+];
 const missing = required.filter((key) => !cv[key]);
 
 if (missing.length) {
   throw new Error(`cv.yaml is missing required sections: ${missing.join(", ")}`);
 }
 
-for (const field of ["name", "role", "email", "location"]) {
-  if (!cv.personal[field]) throw new Error(`cv.yaml: personal.${field} is required`);
+const requireFields = (item, fields, path) => {
+  fields.forEach((field) => {
+    if (!item?.[field]) throw new Error(`cv.yaml: ${path}.${field} is required`);
+  });
+};
+
+const requireList = (items, path, length) => {
+  if (!Array.isArray(items) || (length ? items.length !== length : items.length === 0)) {
+    const requirement = length ? `contain ${length} items` : "contain at least one item";
+    throw new Error(`cv.yaml: ${path} must ${requirement}`);
+  }
+};
+
+requireFields(cv.personal, ["name", "first_name", "last_name", "role", "location", "phone", "email", "website", "portrait"], "personal");
+requireFields(cv.profile, ["short", "paragraphs"], "profile");
+requireList(cv.profile.paragraphs, "profile.paragraphs");
+
+const portraitUrl = new URL(`../public/${cv.personal.portrait.replace(/^\//, "")}`, import.meta.url);
+if (!fs.existsSync(portraitUrl)) {
+  throw new Error(`cv.yaml: portrait not found: ${cv.personal.portrait}`);
 }
 
-if (!Array.isArray(cv.experience) || !cv.experience.length) {
-  throw new Error("cv.yaml: experience must contain at least one role");
-}
+requireList(cv.links, "links");
+cv.links.forEach((link, index) => requireFields(link, ["label", "url"], `links[${index}]`));
 
-if (!Array.isArray(cv.current_role_impact) || cv.current_role_impact.length !== 4) {
-  throw new Error("cv.yaml: current_role_impact must contain four items");
-}
+requireList(cv.current_role_impact, "current_role_impact", 4);
+cv.current_role_impact.forEach((metric, index) => requireFields(metric, ["key", "value", "label", "context"], `current_role_impact[${index}]`));
 
-if (!Array.isArray(cv.career_arc) || cv.career_arc.length !== 3) {
-  throw new Error("cv.yaml: career_arc must contain three stages");
-}
+requireList(cv.career_arc, "career_arc", 3);
+cv.career_arc.forEach((stage, index) => requireFields(stage, ["period", "title", "description"], `career_arc[${index}]`));
 
+requireList(cv.skills, "skills");
+cv.skills.forEach((group, index) => {
+  requireFields(group, ["group", "items"], `skills[${index}]`);
+  requireList(group.items, `skills[${index}].items`);
+});
+
+requireList(cv.experience, "experience");
 cv.experience.forEach((role, index) => {
-  for (const field of ["company", "role", "location", "start", "end", "summary"]) {
-    if (!role[field]) throw new Error(`cv.yaml: experience[${index}].${field} is required`);
-  }
-  if (!Array.isArray(role.highlights) || !role.highlights.length) {
-    throw new Error(`cv.yaml: experience[${index}].highlights must contain at least one item`);
-  }
+  requireFields(role, ["company", "role", "location", "start", "end", "summary", "highlights"], `experience[${index}]`);
+  requireList(role.highlights, `experience[${index}].highlights`);
   if (role.logo) {
     const logoUrl = new URL(`../public/${role.logo.replace(/^\//, "")}`, import.meta.url);
     if (!fs.existsSync(logoUrl)) throw new Error(`cv.yaml: logo not found for ${role.company}: ${role.logo}`);
   }
+});
+
+requireList(cv.earlier_experience, "earlier_experience");
+cv.earlier_experience.forEach((role, index) => requireFields(role, ["company", "role", "location", "start", "end"], `earlier_experience[${index}]`));
+
+requireList(cv.certifications, "certifications");
+cv.certifications.forEach((certification, index) => requireFields(certification, ["title", "issuer", "date"], `certifications[${index}]`));
+
+requireList(cv.selected_work, "selected_work");
+cv.selected_work.forEach((item, index) => {
+  requireFields(item, ["number", "title", "description", "tags"], `selected_work[${index}]`);
+  requireList(item.tags, `selected_work[${index}].tags`);
 });
 
 console.log(`CV data valid: ${cv.experience.length} roles, ${cv.certifications.length} certifications.`);

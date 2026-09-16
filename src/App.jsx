@@ -7,9 +7,35 @@ const Moon = () => <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 15.2
 const Sun = () => <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.5" /><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" /></svg>;
 const Horizon = () => <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3" /><path d="M3 12h4M17 12h4M5.5 6.5l2.8 2.8M15.7 14.7l2.8 2.8" /></svg>;
 
+const THEMES = [
+  { id: "dark", label: "Dark", title: "Use dark crimson mode", Icon: Moon, cv: "/mark-rathbone-cv-crimson.pdf" },
+  { id: "mid", label: "Mid", title: "Use mid cobalt mode", Icon: Horizon, cv: "/mark-rathbone-cv-cobalt.pdf" },
+  { id: "light", label: "Light", title: "Use light gold mode", Icon: Sun, cv: "/mark-rathbone-cv-gold.pdf" },
+];
+const THEME_IDS = THEMES.map(({ id }) => id);
+const THEME_COLOURS = { dark: "#10090b", mid: "#071120", light: "#f6edcf" };
+const NAV_ITEMS = [
+  { id: "work", label: "Work" },
+  { id: "experience", label: "Timeline" },
+  { id: "skills", label: "Skills" },
+];
+
+function getInitialTheme() {
+  if (typeof window === "undefined") return "mid";
+  try {
+    const savedMode = window.localStorage.getItem("theme-mode");
+    const legacyPalette = window.localStorage.getItem("palette");
+    if (THEME_IDS.includes(savedMode)) return savedMode;
+    return legacyPalette === "alternate" ? "dark" : "mid";
+  } catch {
+    return "mid";
+  }
+}
+
 function SectionTitle({ index, eyebrow, children }) {
   return (
     <div className="section-title reveal">
+      <span className="section-ghost" aria-hidden="true">{index}</span>
       <span className="section-number">{index}</span>
       <div><p>{eyebrow}</p><h2>{children}</h2></div>
       <span className="section-line" />
@@ -19,42 +45,43 @@ function SectionTitle({ index, eyebrow, children }) {
 
 function App({ cv }) {
   const [activeSection, setActiveSection] = useState("");
-  const [theme, setTheme] = useState(() => {
-    if (typeof window === "undefined") return "mid";
-    const savedMode = window.localStorage.getItem("theme-mode");
-    const legacyPalette = window.localStorage.getItem("palette");
-    if (["dark", "mid", "light"].includes(savedMode)) return savedMode;
-    return legacyPalette === "alternate" ? "dark" : "mid";
-  });
+  const [theme, setTheme] = useState(getInitialTheme);
   const cursorGlow = useRef(null);
   const scrollProgress = useRef(null);
   const currentRoleImpact = cv.current_role_impact ?? [];
   const metrics = Object.fromEntries(currentRoleImpact.map((metric) => [metric.key, metric]));
-  const cvDownload = {
-    dark: "/mark-rathbone-cv-crimson.pdf",
-    mid: "/mark-rathbone-cv-cobalt.pdf",
-    light: "/mark-rathbone-cv-gold.pdf",
-  }[theme];
+  const cvDownload = THEMES.find(({ id }) => id === theme)?.cv ?? "/mark-rathbone-cv.pdf";
 
   useEffect(() => {
-    document.documentElement.dataset.theme = theme;
-    document.documentElement.style.colorScheme = theme === "light" ? "light" : "dark";
-    window.localStorage.setItem("theme-mode", theme);
-    window.localStorage.removeItem("palette");
-    const themeColours = { dark: "#10090b", mid: "#071120", light: "#f6edcf" };
-    document.querySelector('meta[name="theme-color"]')?.setAttribute("content", themeColours[theme]);
+    const root = document.documentElement;
+    root.dataset.theme = theme;
+    root.style.colorScheme = theme === "light" ? "light" : "dark";
+    try {
+      window.localStorage.setItem("theme-mode", theme);
+      window.localStorage.removeItem("palette");
+    } catch {
+      // The selected theme still applies when storage is unavailable.
+    }
+    document.querySelector('meta[name="theme-color"]')?.setAttribute("content", THEME_COLOURS[theme]);
   }, [theme]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      (entries) => entries.forEach((entry) => entry.isIntersecting && entry.target.classList.add("is-visible")),
+      (entries) => entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target);
+      }),
       { threshold: 0.12 },
     );
-    document.querySelectorAll(".reveal").forEach((node) => observer.observe(node));
+    const revealItems = document.querySelectorAll(".reveal");
+    revealItems.forEach((node) => observer.observe(node));
     return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
+    const topbar = document.querySelector(".topbar");
+    const sections = NAV_ITEMS.map(({ id }) => document.getElementById(id)).filter(Boolean);
     let animationFrame;
     const updateProgress = () => {
       cancelAnimationFrame(animationFrame);
@@ -62,14 +89,14 @@ function App({ cv }) {
         const available = document.documentElement.scrollHeight - window.innerHeight;
         const progress = available > 0 ? window.scrollY / available : 0;
         if (scrollProgress.current) scrollProgress.current.style.transform = `scaleX(${progress})`;
-        document.querySelector(".topbar")?.classList.toggle("is-scrolled", window.scrollY > 24);
+        topbar?.classList.toggle("is-scrolled", window.scrollY > 24);
         const marker = window.innerHeight * 0.35;
-        const current = [...document.querySelectorAll("#work, #experience, #skills")]
-          .find((section) => {
-            const bounds = section.getBoundingClientRect();
-            return bounds.top <= marker && bounds.bottom >= marker;
-          });
-        setActiveSection(current?.id ?? "");
+        const current = sections.find((section) => {
+          const bounds = section.getBoundingClientRect();
+          return bounds.top <= marker && bounds.bottom >= marker;
+        });
+        const nextSection = current?.id ?? "";
+        setActiveSection((previous) => previous === nextSection ? previous : nextSection);
       });
     };
     updateProgress();
@@ -121,15 +148,24 @@ function App({ cv }) {
       <header className="topbar">
         <a className="monogram" href="#top" aria-label="Mark Rathbone, home">MR<span>.</span></a>
         <nav aria-label="Main navigation">
-          <a className={activeSection === "work" ? "is-active" : ""} aria-current={activeSection === "work" ? "page" : undefined} href="#work">Work</a>
-          <a className={activeSection === "experience" ? "is-active" : ""} aria-current={activeSection === "experience" ? "page" : undefined} href="#experience">Timeline</a>
-          <a className={activeSection === "skills" ? "is-active" : ""} aria-current={activeSection === "skills" ? "page" : undefined} href="#skills">Skills</a>
+          {NAV_ITEMS.map(({ id, label }) => (
+            <a className={activeSection === id ? "is-active" : ""} aria-current={activeSection === id ? "location" : undefined} href={`#${id}`} key={id}>{label}</a>
+          ))}
         </nav>
         <div className="nav-actions">
           <div className="mode-picker" role="group" aria-label="Colour mode">
-            <button className={theme === "dark" ? "is-active" : ""} onClick={() => setTheme("dark")} aria-pressed={theme === "dark"} title="Use dark crimson mode"><Moon /><span>Dark</span></button>
-            <button className={theme === "mid" ? "is-active" : ""} onClick={() => setTheme("mid")} aria-pressed={theme === "mid"} title="Use mid cobalt mode"><Horizon /><span>Mid</span></button>
-            <button className={theme === "light" ? "is-active" : ""} onClick={() => setTheme("light")} aria-pressed={theme === "light"} title="Use light gold mode"><Sun /><span>Light</span></button>
+            {THEMES.map(({ id, label, title, Icon }) => (
+              <button
+                type="button"
+                className={theme === id ? "is-active" : ""}
+                onClick={() => setTheme(id)}
+                aria-pressed={theme === id}
+                title={title}
+                key={id}
+              >
+                <Icon /><span>{label}</span>
+              </button>
+            ))}
           </div>
           <a className="mini-cv" href={cvDownload} download>CV <Download /></a>
         </div>
@@ -162,7 +198,7 @@ function App({ cv }) {
           <div className="hero-visual reveal is-visible">
             <div className="portrait-frame">
               <div className="portrait-label">ENG / 01</div>
-              <img src={cv.personal.portrait} alt={`Portrait of ${cv.personal.name}`} />
+              <img src={cv.personal.portrait} alt={`Portrait of ${cv.personal.name}`} fetchPriority="high" decoding="async" />
               <div className="portrait-slice" aria-hidden="true" />
             </div>
             <div className="stat-card stat-card-top"><span>CURRENT SCALE</span><strong>{metrics.repositories?.value ?? "30–40"} REPOS</strong></div>
@@ -193,7 +229,7 @@ function App({ cv }) {
           <div className="career-heading reveal">
             <p className="eyebrow">Career trajectory</p>
             <h2 id="career-arc-title">Built in layers.<br /><em>Leading the whole system.</em></h2>
-            <p>Each stage added a wider field of view: from operating cloud services, to building platforms, to setting the direction that helps teams and the wider business deliver safely.</p>
+            <p>Each move widened the view: from running cloud services, to building platforms, to setting the direction that lets teams and the wider business ship safely.</p>
           </div>
           <div className="arc-track">
             {cv.career_arc.map((stage, index) => (
@@ -208,10 +244,10 @@ function App({ cv }) {
           <div className="current-impact reveal">
             <div className="current-impact-heading">
               <span>Current role impact</span>
-              <strong>Clearcare Solutions</strong>
-              <p>Current scope of platform ownership and enablement.</p>
+              <strong>ClearCare Solutions</strong>
+              <p>The platform and delivery remit I own at ClearCare today.</p>
             </div>
-            <div className="impact-grid" aria-label="Current role impact at Clearcare Solutions">
+            <div className="impact-grid" aria-label="Current role impact at ClearCare Solutions">
               {currentRoleImpact.map((metric) => (
                 <article className="impact-metric" key={metric.key}>
                   <strong>{metric.value}</strong>
@@ -253,7 +289,7 @@ function App({ cv }) {
                 <div className="timeline-date"><span>{role.start}</span><i />{role.end}</div>
                 <div className="timeline-copy">
                   <div className="timeline-heading">
-                    {role.logo && <span className="company-logo"><img src={role.logo} alt={`${role.company} logo`} /></span>}
+                    {role.logo && <span className="company-logo"><img src={role.logo} alt={`${role.company} logo`} loading="lazy" decoding="async" /></span>}
                     <div>
                       <p className="company">{role.company} · {role.location}</p>
                       <h3>{role.role}</h3>
@@ -308,7 +344,7 @@ function App({ cv }) {
           <h2 className="reveal">Let’s build something<br /><em>worth operating.</em></h2>
           <a className="contact-email reveal" href={`mailto:${cv.personal.email}`}>{cv.personal.email}<Arrow /></a>
           <div className="contact-links">
-            {cv.links.map((link) => <a href={link.url} target="_blank" rel="noreferrer" key={link.label}>{link.label}<External /></a>)}
+            {cv.links.map((link) => <a href={link.url} target="_blank" rel="noopener noreferrer" key={link.label}>{link.label}<External /></a>)}
             <a href={cvDownload} download>Download CV<Download /></a>
           </div>
           <div className="contact-orbit" aria-hidden="true"><span /><i /><i /></div>

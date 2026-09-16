@@ -7,6 +7,7 @@ The website, downloadable PDF CV, machine-readable CV data, and social preview i
 Every CV section has a named YAML block:
 
 - `personal`, `links`, and `profile`
+- `impact_metrics` and `career_arc`
 - `skills`
 - `experience` and `earlier_experience`
 - `certifications`
@@ -25,13 +26,13 @@ npm install
 npm run dev
 ```
 
-Build the production site and PDF:
+Build the production site and themed PDFs:
 
 ```bash
 npm run build
 ```
 
-The website is written to `dist/`. The PDF, JSON data, and social card are generated temporarily in `public/` before Vite copies them into the build. All generated outputs are ignored by Git.
+The website is written to `dist/`. Crimson, cobalt, and gold CV variants are generated temporarily in `public/`, alongside the JSON data and social card, before Vite copies them into the build. The active website theme selects the matching CV download; `mark-rathbone-cv.pdf` remains a cobalt compatibility copy. All generated outputs are ignored by Git.
 
 Run the same validation used by CI:
 

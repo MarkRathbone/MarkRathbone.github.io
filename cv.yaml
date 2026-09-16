@@ -20,8 +20,37 @@ links:
 profile:
   short: I lead platform and delivery engineering that helps teams build, test, and ship with confidence.
   paragraphs:
-    - Lead DevOps and Platform Engineer with experience shaping cloud strategy and building the tooling, automation, and standards that help teams deliver reliable software. Combines hands-on engineering in Go, Python, GitHub Actions, GitLab CI/CD, and Infrastructure as Code with technical leadership, mentoring, and a strong focus on developer experience.
+    - Lead DevOps and Platform Engineer with over six years of experience shaping cloud strategy and building the tooling, automation, and standards that help teams deliver reliable software. Combines hands-on engineering in Go, Python, GitHub Actions, GitLab CI/CD, and Infrastructure as Code with technical leadership, mentoring, and a strong focus on developer experience.
     - Experienced across the full delivery lifecycle, from architecture and reusable platform capabilities through to testing, release, and production operations across AWS, Azure, and Kubernetes. Uses AI-assisted workflows selectively to accelerate development, review, testing, and documentation while retaining human ownership, validation, and secure engineering controls.
+
+impact_metrics:
+  - key: experience
+    value: 6+
+    label: Years in cloud and platform engineering
+    context: From hands-on delivery to technical leadership
+  - key: repositories
+    value: 30–40
+    label: Repositories supported
+    context: Including four core product codebases
+  - key: colleagues
+    value: 20+
+    label: Colleagues enabled
+    context: Across engineering and the wider business
+  - key: clouds
+    value: AWS + Azure
+    label: Cloud ecosystems
+    context: Strategy, delivery, and production operations
+
+career_arc:
+  - period: 2020–2022
+    title: Build the foundations
+    description: Moved from customer-facing problem solving into cloud engineering, building AWS data platforms, production automation, and a strong grounding in cost, security, and operations.
+  - period: 2022–2025
+    title: Scale the platform
+    description: Deepened into Kubernetes, EKS, Go operators, observability, and developer tooling, turning repeated infrastructure work into reusable platform capabilities.
+  - period: 2025–Now
+    title: Lead the system
+    description: Owns platform direction, delivery engineering, release safety, and responsible AI adoption while connecting engineering decisions to product, customer, and business outcomes.
 
 skills:
   - group: Cloud & platform

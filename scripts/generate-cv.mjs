@@ -59,7 +59,11 @@ const firstSkills = cv.skills.flatMap((group) => group.items);
 const pageOneRoles = cv.experience.slice(0, 3).map((item) => role(item)).join("");
 const pageTwoRoles = cv.experience.slice(3).map((item) => role(item)).join("");
 
-const cvHtml = (theme) => `<!doctype html><html><head><meta charset="utf-8"><style>
+const cvHtml = (theme) => `<!doctype html><html><head><meta charset="utf-8">
+  <title>${esc(cv.personal.name)} — ${esc(cv.personal.role)} CV</title>
+  <meta name="author" content="${esc(cv.personal.name)}">
+  <meta name="subject" content="Curriculum vitae">
+  <style>
   :root {
     --page: ${theme.page}; --text: ${theme.text}; --heading: ${theme.heading}; --accent: ${theme.accent};
     --highlight: ${theme.highlight}; --sidebar: ${theme.sidebar}; --sidebar-text: ${theme.sidebarText};
@@ -70,6 +74,7 @@ const cvHtml = (theme) => `<!doctype html><html><head><meta charset="utf-8"><sty
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif; color: var(--text); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   .page { width: 210mm; height: 297mm; overflow: hidden; position: relative; background: var(--page); page-break-after: always; }
+  .page::after { content: ""; position: absolute; z-index: 10; left: 0; right: 0; top: 0; height: 1.4mm; background: linear-gradient(90deg, var(--accent) 0 76%, var(--highlight) 76%); }
   .page:last-child { page-break-after: auto; }
   .cover { display: grid; grid-template-columns: 61mm 1fr; grid-template-rows: 54mm 1fr; }
   .photo { background: var(--photo); overflow: hidden; }

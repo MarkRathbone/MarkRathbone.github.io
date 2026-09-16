@@ -18,6 +18,7 @@ function SectionTitle({ index, eyebrow, children }) {
 }
 
 function App({ cv }) {
+  const [activeSection, setActiveSection] = useState("");
   const [theme, setTheme] = useState(() => {
     if (typeof window === "undefined") return "mid";
     const savedMode = window.localStorage.getItem("theme-mode");
@@ -27,6 +28,7 @@ function App({ cv }) {
   });
   const cursorGlow = useRef(null);
   const scrollProgress = useRef(null);
+  const metrics = Object.fromEntries((cv.impact_metrics ?? []).map((metric) => [metric.key, metric]));
   const cvDownload = {
     dark: "/mark-rathbone-cv-crimson.pdf",
     mid: "/mark-rathbone-cv-cobalt.pdf",
@@ -59,6 +61,14 @@ function App({ cv }) {
         const available = document.documentElement.scrollHeight - window.innerHeight;
         const progress = available > 0 ? window.scrollY / available : 0;
         if (scrollProgress.current) scrollProgress.current.style.transform = `scaleX(${progress})`;
+        document.querySelector(".topbar")?.classList.toggle("is-scrolled", window.scrollY > 24);
+        const marker = window.innerHeight * 0.35;
+        const current = [...document.querySelectorAll("#work, #experience, #skills")]
+          .find((section) => {
+            const bounds = section.getBoundingClientRect();
+            return bounds.top <= marker && bounds.bottom >= marker;
+          });
+        setActiveSection(current?.id ?? "");
       });
     };
     updateProgress();
@@ -110,9 +120,9 @@ function App({ cv }) {
       <header className="topbar">
         <a className="monogram" href="#top" aria-label="Mark Rathbone, home">MR<span>.</span></a>
         <nav aria-label="Main navigation">
-          <a href="#work">Work</a>
-          <a href="#experience">Timeline</a>
-          <a href="#skills">Skills</a>
+          <a className={activeSection === "work" ? "is-active" : ""} aria-current={activeSection === "work" ? "page" : undefined} href="#work">Work</a>
+          <a className={activeSection === "experience" ? "is-active" : ""} aria-current={activeSection === "experience" ? "page" : undefined} href="#experience">Timeline</a>
+          <a className={activeSection === "skills" ? "is-active" : ""} aria-current={activeSection === "skills" ? "page" : undefined} href="#skills">Skills</a>
         </nav>
         <div className="nav-actions">
           <div className="mode-picker" role="group" aria-label="Colour mode">
@@ -154,8 +164,8 @@ function App({ cv }) {
               <img src={cv.personal.portrait} alt={`Portrait of ${cv.personal.name}`} />
               <div className="portrait-slice" aria-hidden="true" />
             </div>
-            <div className="stat-card stat-card-top"><span>CORE</span><strong>AWS + K8s</strong></div>
-            <div className="stat-card stat-card-bottom"><span>BUILD</span><strong>Go / Python / IaC</strong></div>
+            <div className="stat-card stat-card-top"><span>PLATFORM SCALE</span><strong>{metrics.repositories?.value ?? "30–40"} REPOS</strong></div>
+            <div className="stat-card stat-card-bottom"><span>ENABLEMENT</span><strong>{metrics.colleagues?.value ?? "20+"} PEOPLE</strong></div>
             <div className="orbit" aria-hidden="true">PLATFORM · RELIABILITY · SYSTEMS ·</div>
           </div>
 
@@ -177,11 +187,38 @@ function App({ cv }) {
           </div>
         </section>
 
+        <section className="career-arc section-pad" aria-labelledby="career-arc-title">
+          <div className="career-heading reveal">
+            <p className="eyebrow">Career trajectory</p>
+            <h2 id="career-arc-title">Built in layers.<br /><em>Leading the whole system.</em></h2>
+            <p>Each stage added a wider field of view: from operating cloud services, to building platforms, to setting the direction that helps teams and the wider business deliver safely.</p>
+          </div>
+          <div className="impact-grid" aria-label="Career impact">
+            {cv.impact_metrics.map((metric) => (
+              <article className="impact-metric reveal" key={metric.key}>
+                <strong>{metric.value}</strong>
+                <span>{metric.label}</span>
+                <small>{metric.context}</small>
+              </article>
+            ))}
+          </div>
+          <div className="arc-track">
+            {cv.career_arc.map((stage, index) => (
+              <article className="arc-stage reveal" key={stage.period}>
+                <div className="arc-node" aria-hidden="true"><span>{String(index + 1).padStart(2, "0")}</span></div>
+                <p>{stage.period}</p>
+                <h3>{stage.title}</h3>
+                <div>{stage.description}</div>
+              </article>
+            ))}
+          </div>
+        </section>
+
         <section className="work section-pad" id="work">
           <div className="section-motif work-motif" aria-hidden="true">
             <span /><span /><i /><b />
           </div>
-          <SectionTitle index="01" eyebrow="Selected operations">Systems I’ve helped ship</SectionTitle>
+          <SectionTitle index="01" eyebrow="Selected work">Systems I’ve helped ship</SectionTitle>
           <div className="work-grid">
             {cv.selected_work.map((item, index) => (
               <article className={`work-card reveal work-card-${index + 1}`} key={item.number}>

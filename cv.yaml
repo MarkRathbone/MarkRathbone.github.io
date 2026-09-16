@@ -53,15 +53,15 @@ experience:
     start: April 2026
     end: Present
     logo: /company-logos/clearcare.svg
-    summary: Leads platform and delivery engineering across AWS and Azure, building internal capabilities that make software delivery safer, more consistent, and easier for teams to own.
+    summary: Owns the technical direction of infrastructure and platform engineering across AWS and Azure, setting the roadmap and building internal capabilities that make delivery safer, more consistent, and easier for teams to own.
     highlights:
-      - Set platform and delivery strategy with senior leadership, balancing immediate product needs with a maintainable roadmap across AWS and Azure.
-      - Established an internal developer platform spanning Go services and tooling, GitHub Actions, and Terraform, giving engineers consistent paths through common operational workflows.
-      - Designed central release orchestration for coordinated multi-repository deployments, with validated manifests, deployment evidence, smoke checks, and dependable rollback paths.
-      - Built self-service Go tooling for local setup, secure AWS access, diagnostics, and releases, reducing operational friction while retaining appropriate controls and auditability.
-      - Codified multi-account AWS foundations and reusable environment infrastructure in Terraform, introducing explicit guardrails around identity, state, secrets, and immutable deployments.
-      - Established responsible AI-assisted development practices for implementation, code review, testing, documentation, and operational analysis, with human approval, validation, and security boundaries built into the workflow.
-      - Raised engineering capability through shared contracts, clear runbooks, code standards, and hands-on mentoring of junior engineers and apprentices.
+      - Sets platform priorities with lead developers, support leadership, and the CFO, aligning delivery, cloud cost, security, and operational investment with wider business needs.
+      - Proposed, architected, and built an internal developer platform supporting approximately 10 engineers across 30–40 repositories, including four frequently changing core product codebases.
+      - Designed central release orchestration and introduced the organisation's first defined rollback strategy, combining validated manifests, deployment evidence, smoke checks, and controlled recovery paths.
+      - Built self-service Go tooling and codified multi-account AWS foundations in Terraform, introducing reusable workflows and guardrails around identity, state, secrets, and immutable deployments.
+      - Supports more than 20 colleagues across engineering, QA, customer support, finance, and commercial teams, advising on operations, cloud cost, technical alignment, and security for systems handling sensitive and personal data.
+      - Established an internally operated AI-assisted workflow integrated with Jira and pull requests to review changes, comment on developer work, and propose scoped fixes, guided by reusable task-specific instructions, controlled access, and mandatory human approval.
+      - Raises engineering capability through automated tests, shared contracts, clear runbooks, code standards, and hands-on mentoring of junior engineers and apprentices.
 
   - company: Searidge Technologies
     role: Cloud Operations Engineer
@@ -166,7 +166,7 @@ certifications:
 selected_work:
   - number: "01"
     title: Internal developer platform
-    description: Built reusable Go tooling, Terraform modules, and release automation that turn operational workflows into secure, testable self-service capabilities.
+    description: Proposed and built reusable Go tooling, Terraform modules, and release automation supporting approximately 10 engineers across 30–40 repositories.
     tags: [Go, GitHub Actions, Terraform, AWS]
   - number: "02"
     title: Kubernetes as a control plane

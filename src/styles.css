@@ -234,6 +234,11 @@ svg { width: 1.1em; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-
 .career-heading h2 { margin: 0; font-size: clamp(3rem, 6.5vw, 7rem); line-height: .84; letter-spacing: -.075em; text-transform: uppercase; }
 .career-heading h2 em { color: var(--blue); font-style: normal; }
 .career-heading > p:last-child { max-width: 720px; margin: 2rem 0 0; color: var(--timeline-copy); font-size: 1rem; line-height: 1.8; }
+.current-impact { margin-top: clamp(5rem, 9vw, 9rem); border-top: 3px solid var(--blue); }
+.current-impact-heading { display: grid; grid-template-columns: auto 1fr minmax(220px, 320px); align-items: end; gap: clamp(1rem, 2.5vw, 2.5rem); padding: 1.35rem clamp(1rem, 2vw, 2rem); }
+.current-impact-heading span { color: var(--yellow); font: 500 .62rem var(--mono); letter-spacing: .12em; text-transform: uppercase; }
+.current-impact-heading strong { font-size: clamp(1.35rem, 2.7vw, 2.8rem); line-height: .95; letter-spacing: -.045em; text-transform: uppercase; }
+.current-impact-heading p { margin: 0; color: var(--timeline-copy); font-size: .72rem; line-height: 1.55; }
 .impact-grid { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .impact-metric { min-width: 0; padding: 1.7rem clamp(1rem, 2vw, 2rem); border-right: 1px solid var(--line); }
 .impact-metric:last-child { border-right: 0; }
@@ -413,6 +418,8 @@ body, .manifesto, .career-arc, .work, .experience, .skills, .contact, footer, .w
   .manifesto-mark { height: 7rem; }
   .manifesto-meta { margin-top: 3rem; }
   .career-heading h2 { font-size: clamp(2.8rem, 14vw, 4.6rem); }
+  .current-impact-heading { grid-template-columns: 1fr; align-items: start; gap: .45rem; padding: 1.25rem .85rem; }
+  .current-impact-heading p { margin-top: .3rem; }
   .impact-grid { grid-template-columns: 1fr 1fr; }
   .impact-metric { padding: 1.4rem .85rem; }
   .impact-metric strong { font-size: clamp(1.8rem, 10vw, 3rem); }

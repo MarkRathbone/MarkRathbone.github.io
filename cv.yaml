@@ -23,23 +23,23 @@ profile:
     - Lead DevOps and Platform Engineer with over six years of experience shaping cloud strategy and building the tooling, automation, and standards that help teams deliver reliable software. Combines hands-on engineering in Go, Python, GitHub Actions, GitLab CI/CD, and Infrastructure as Code with technical leadership, mentoring, and a strong focus on developer experience.
     - Experienced across the full delivery lifecycle, from architecture and reusable platform capabilities through to testing, release, and production operations across AWS, Azure, and Kubernetes. Uses AI-assisted workflows selectively to accelerate development, review, testing, and documentation while retaining human ownership, validation, and secure engineering controls. Champions disciplined experimentation, testing emerging approaches in bounded ways and turning proven ideas into secure, reusable practices.
 
-impact_metrics:
-  - key: experience
-    value: 6+
-    label: Years in cloud and platform engineering
-    context: From hands-on delivery to technical leadership
+current_role_impact:
   - key: repositories
     value: 30–40
-    label: Repositories supported
+    label: Repositories in scope
     context: Including four core product codebases
+  - key: engineers
+    value: ~10
+    label: Engineers supported
+    context: Through shared platform and delivery workflows
   - key: colleagues
     value: 20+
     label: Colleagues enabled
-    context: Across engineering and the wider business
-  - key: clouds
-    value: AWS + Azure
-    label: Cloud ecosystems
-    context: Strategy, delivery, and production operations
+    context: Across engineering, QA, support, finance, and commercial teams
+  - key: rollback
+    value: First
+    label: Defined rollback strategy
+    context: Introduced through coordinated release orchestration
 
 career_arc:
   - period: 2020–2022
@@ -196,7 +196,7 @@ certifications:
 selected_work:
   - number: "01"
     title: Internal developer platform
-    description: Proposed and built reusable Go tooling, Terraform modules, and release automation supporting approximately 10 engineers across 30–40 repositories.
+    description: At Clearcare, proposed and built reusable Go tooling, Terraform modules, and release automation supporting approximately 10 engineers across 30–40 repositories.
     tags: [Go, GitHub Actions, Terraform, AWS]
   - number: "02"
     title: Kubernetes as a control plane

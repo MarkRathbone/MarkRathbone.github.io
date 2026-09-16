@@ -28,7 +28,8 @@ function App({ cv }) {
   });
   const cursorGlow = useRef(null);
   const scrollProgress = useRef(null);
-  const metrics = Object.fromEntries((cv.impact_metrics ?? []).map((metric) => [metric.key, metric]));
+  const currentRoleImpact = cv.current_role_impact ?? [];
+  const metrics = Object.fromEntries(currentRoleImpact.map((metric) => [metric.key, metric]));
   const cvDownload = {
     dark: "/mark-rathbone-cv-crimson.pdf",
     mid: "/mark-rathbone-cv-cobalt.pdf",
@@ -164,8 +165,8 @@ function App({ cv }) {
               <img src={cv.personal.portrait} alt={`Portrait of ${cv.personal.name}`} />
               <div className="portrait-slice" aria-hidden="true" />
             </div>
-            <div className="stat-card stat-card-top"><span>PLATFORM SCALE</span><strong>{metrics.repositories?.value ?? "30–40"} REPOS</strong></div>
-            <div className="stat-card stat-card-bottom"><span>ENABLEMENT</span><strong>{metrics.colleagues?.value ?? "20+"} PEOPLE</strong></div>
+            <div className="stat-card stat-card-top"><span>CURRENT SCALE</span><strong>{metrics.repositories?.value ?? "30–40"} REPOS</strong></div>
+            <div className="stat-card stat-card-bottom"><span>CURRENT REACH</span><strong>{metrics.colleagues?.value ?? "20+"} PEOPLE</strong></div>
             <div className="orbit" aria-hidden="true">PLATFORM · RELIABILITY · SYSTEMS ·</div>
           </div>
 
@@ -194,15 +195,6 @@ function App({ cv }) {
             <h2 id="career-arc-title">Built in layers.<br /><em>Leading the whole system.</em></h2>
             <p>Each stage added a wider field of view: from operating cloud services, to building platforms, to setting the direction that helps teams and the wider business deliver safely.</p>
           </div>
-          <div className="impact-grid" aria-label="Career impact">
-            {cv.impact_metrics.map((metric) => (
-              <article className="impact-metric reveal" key={metric.key}>
-                <strong>{metric.value}</strong>
-                <span>{metric.label}</span>
-                <small>{metric.context}</small>
-              </article>
-            ))}
-          </div>
           <div className="arc-track">
             {cv.career_arc.map((stage, index) => (
               <article className="arc-stage reveal" key={stage.period}>
@@ -212,6 +204,22 @@ function App({ cv }) {
                 <div>{stage.description}</div>
               </article>
             ))}
+          </div>
+          <div className="current-impact reveal">
+            <div className="current-impact-heading">
+              <span>Current role impact</span>
+              <strong>Clearcare Solutions</strong>
+              <p>Current scope of platform ownership and enablement.</p>
+            </div>
+            <div className="impact-grid" aria-label="Current role impact at Clearcare Solutions">
+              {currentRoleImpact.map((metric) => (
+                <article className="impact-metric" key={metric.key}>
+                  <strong>{metric.value}</strong>
+                  <span>{metric.label}</span>
+                  <small>{metric.context}</small>
+                </article>
+              ))}
+            </div>
           </div>
         </section>
 

@@ -2,7 +2,7 @@ import fs from "node:fs";
 import { load as loadYaml } from "js-yaml";
 
 const cv = loadYaml(fs.readFileSync(new URL("../cv.yaml", import.meta.url), "utf8"));
-const required = ["personal", "profile", "impact_metrics", "career_arc", "skills", "experience", "certifications"];
+const required = ["personal", "profile", "current_role_impact", "career_arc", "skills", "experience", "certifications"];
 const missing = required.filter((key) => !cv[key]);
 
 if (missing.length) {
@@ -17,8 +17,8 @@ if (!Array.isArray(cv.experience) || !cv.experience.length) {
   throw new Error("cv.yaml: experience must contain at least one role");
 }
 
-if (!Array.isArray(cv.impact_metrics) || cv.impact_metrics.length !== 4) {
-  throw new Error("cv.yaml: impact_metrics must contain four items");
+if (!Array.isArray(cv.current_role_impact) || cv.current_role_impact.length !== 4) {
+  throw new Error("cv.yaml: current_role_impact must contain four items");
 }
 
 if (!Array.isArray(cv.career_arc) || cv.career_arc.length !== 3) {

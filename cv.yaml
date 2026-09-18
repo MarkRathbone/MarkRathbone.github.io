@@ -46,7 +46,7 @@ career_arc:
     title: Build the foundations
     description: I moved from customer support into cloud engineering, building AWS data platforms and production automation while learning the realities of cost, security, and operations.
   - period: 2022–2026
-    title: Scale the platform
+    title: Make it repeatable
     description: I built and operated Kubernetes platforms, EKS clusters, Go operators, observability, and developer tooling, turning repeated infrastructure work into reusable capabilities.
   - period: 2026–Now
     title: Lead the system
@@ -86,8 +86,8 @@ experience:
     summary: Sets the direction for infrastructure and platform engineering across AWS and Azure, while building the tools and release workflows that make delivery safer for the teams using them.
     highlights:
       - Sets platform priorities with lead developers and the CFO, balancing delivery risk, cloud cost, security, and operational investment.
-      - Proposed and built an internal developer platform around the needs of roughly 10 engineers working across 30–40 repositories, including four core product codebases.
-      - Built central release tooling with validated manifests, deployment evidence, smoke checks, and controlled recovery, introducing the organisation's first defined rollback path.
+      - Proposed and built an internal developer platform that gives engineers a consistent way to provision infrastructure and ship changes.
+      - Built central release tooling with validated manifests, deployment evidence, smoke checks, and controlled recovery, introducing a defined rollback path.
       - Created self-service Go tooling and codified multi-account AWS foundations in Terraform, adding reusable workflows and guardrails for identity, state, secrets, and immutable deployments.
       - Advises QA, support, and commercial teams on deployments, operations, and security questions for systems handling sensitive personal data.
       - Built an internal AI assistant that reads Jira tickets, reviews open pull requests, and opens small fix PRs of its own. Access is controlled, tasks follow shared instructions, and engineers approve every change.
@@ -196,7 +196,7 @@ certifications:
 selected_work:
   - number: "01"
     title: Internal developer platform
-    description: Built ClearCare's internal developer platform around the workflows of roughly 10 engineers across 30–40 repositories, using Go tooling, Terraform modules, and shared release automation.
+    description: Built ClearCare's internal developer platform to make provisioning and releases easier for engineers, combining Go tooling, Terraform modules, and shared release automation.
     tags: [Go, GitHub Actions, Terraform, AWS]
   - number: "02"
     title: Kubernetes as a control plane

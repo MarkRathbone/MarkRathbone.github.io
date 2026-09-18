@@ -158,6 +158,16 @@ for (const [themeName, theme] of Object.entries(cvThemes)) {
   await page.setContent(cvHtml(theme), { waitUntil: "load" });
   const layoutIssues = await page.evaluate(() => {
     const issues = [];
+    const intro = document.querySelector(".cover .intro");
+    const summary = intro.querySelector(".summary");
+    if (summary.getBoundingClientRect().bottom > intro.getBoundingClientRect().bottom - 1) {
+      issues.push("page 1: profile summary exceeds its header");
+    }
+    const sidebar = document.querySelector(".cover aside");
+    const lastSidebarSection = sidebar.querySelector("section:last-child");
+    if (lastSidebarSection.getBoundingClientRect().bottom > sidebar.getBoundingClientRect().bottom - 1) {
+      issues.push("page 1: contact or skills exceed the sidebar");
+    }
     document.querySelectorAll(".page").forEach((sheet, pageIndex) => {
       const sheetBottom = sheet.getBoundingClientRect().bottom;
       sheet.querySelectorAll(".role, .bottom-grid").forEach((element) => {

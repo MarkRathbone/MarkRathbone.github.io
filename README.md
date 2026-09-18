@@ -7,7 +7,7 @@ The website, downloadable PDF CV, machine-readable CV data, and social preview i
 Every CV section has a named YAML block:
 
 - `personal`, `links`, and `profile`
-- `current_role_impact` and `career_arc`
+- `career_highlights` (career-wide website cards) and `career_arc`
 - `skills`
 - `experience` and `earlier_experience`
 - `certifications`

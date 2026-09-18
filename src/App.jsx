@@ -48,8 +48,8 @@ function App({ cv }) {
   const [theme, setTheme] = useState(getInitialTheme);
   const cursorGlow = useRef(null);
   const scrollProgress = useRef(null);
-  const currentRoleImpact = cv.current_role_impact ?? [];
-  const metrics = Object.fromEntries(currentRoleImpact.map((metric) => [metric.key, metric]));
+  const careerHighlights = cv.career_highlights ?? [];
+  const highlights = Object.fromEntries(careerHighlights.map((item) => [item.key, item]));
   const cvDownload = THEMES.find(({ id }) => id === theme)?.cv ?? "/mark-rathbone-cv.pdf";
 
   useEffect(() => {
@@ -185,7 +185,7 @@ function App({ cv }) {
           </div>
           <div className="hero-grid" aria-hidden="true" />
           <div className="hero-copy reveal is-visible">
-            <div className="status"><i /> Available for the next challenge <span>UK · REMOTE</span></div>
+            <div className="status"><i /> Open to the right next role <span>UK · REMOTE</span></div>
             <p className="hero-kicker">Cloud systems / Platform engineering</p>
             <h1><span>{cv.personal.first_name}</span><br />{cv.personal.last_name}</h1>
             <p className="hero-intro">{cv.profile.short}</p>
@@ -201,8 +201,8 @@ function App({ cv }) {
               <img src={cv.personal.portrait} alt={`Portrait of ${cv.personal.name}`} fetchPriority="high" decoding="async" />
               <div className="portrait-slice" aria-hidden="true" />
             </div>
-            <div className="stat-card stat-card-top"><span>CURRENT SCALE</span><strong>{metrics.repositories?.value ?? "30–40"} REPOS</strong></div>
-            <div className="stat-card stat-card-bottom"><span>CURRENT REACH</span><strong>{metrics.colleagues?.value ?? "20+"} PEOPLE</strong></div>
+            <div className="stat-card stat-card-top"><span>EXPERIENCE</span><strong>{highlights.years?.value} YEARS</strong></div>
+            <div className="stat-card stat-card-bottom"><span>APPROACH</span><strong>{highlights.approach?.value}</strong></div>
             <div className="orbit" aria-hidden="true">PLATFORM · RELIABILITY · SYSTEMS ·</div>
           </div>
 
@@ -219,9 +219,9 @@ function App({ cv }) {
           </div>
           <div className="manifesto-meta reveal">
             <span>Based in</span><strong>{cv.personal.location}</strong>
-            <span>Focus</span><strong>Cloud-native infrastructure</strong>
-            <span>Approach</span><strong>Pragmatic by default</strong>
-            <span>Mindset</span><strong>Experiment, validate, scale</strong>
+            <span>Focus</span><strong>Platforms people can use</strong>
+            <span>Approach</span><strong>Hands-on and collaborative</strong>
+            <span>Mindset</span><strong>Try it, test it, keep what works</strong>
           </div>
         </section>
 
@@ -241,18 +241,18 @@ function App({ cv }) {
               </article>
             ))}
           </div>
-          <div className="current-impact reveal">
-            <div className="current-impact-heading">
-              <span>Current role impact</span>
-              <strong>ClearCare Solutions</strong>
-              <p>The platform and delivery remit I own at ClearCare today.</p>
+          <div className="career-highlights reveal">
+            <div className="career-highlights-heading">
+              <span>At a glance</span>
+              <strong>What I bring</strong>
+              <p>From hands-on cloud engineering to platform leadership, without losing touch with the tools.</p>
             </div>
-            <div className="impact-grid" aria-label="Current role impact at ClearCare Solutions">
-              {currentRoleImpact.map((metric) => (
-                <article className="impact-metric" key={metric.key}>
-                  <strong>{metric.value}</strong>
-                  <span>{metric.label}</span>
-                  <small>{metric.context}</small>
+            <div className="highlight-grid" aria-label="Career highlights">
+              {careerHighlights.map((item) => (
+                <article className={`highlight-card highlight-card-${item.key}`} key={item.key}>
+                  <strong>{item.value}</strong>
+                  <span>{item.label}</span>
+                  <small>{item.context}</small>
                 </article>
               ))}
             </div>
@@ -354,7 +354,7 @@ function App({ cv }) {
 
       <footer>
         <a className="monogram" href="#top">MR<span>.</span></a>
-        <p>Designed as code. Deployed with intent.</p>
+        <p>Built from the same YAML as my CV.</p>
         <p>© {new Date().getFullYear()} {cv.personal.name}</p>
       </footer>
     </div>

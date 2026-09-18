@@ -6,7 +6,7 @@ const required = [
   "personal",
   "links",
   "profile",
-  "current_role_impact",
+  "career_highlights",
   "career_arc",
   "skills",
   "experience",
@@ -45,8 +45,16 @@ if (!fs.existsSync(portraitUrl)) {
 requireList(cv.links, "links");
 cv.links.forEach((link, index) => requireFields(link, ["label", "url"], `links[${index}]`));
 
-requireList(cv.current_role_impact, "current_role_impact", 4);
-cv.current_role_impact.forEach((metric, index) => requireFields(metric, ["key", "value", "label", "context"], `current_role_impact[${index}]`));
+requireList(cv.career_highlights, "career_highlights", 4);
+cv.career_highlights.forEach((item, index) => requireFields(item, ["key", "value", "label", "context"], `career_highlights[${index}]`));
+if (new Set(cv.career_highlights.map((item) => item.key)).size !== cv.career_highlights.length) {
+  throw new Error("cv.yaml: career_highlights keys must be unique");
+}
+for (const key of ["years", "approach"]) {
+  if (!cv.career_highlights.some((item) => item.key === key)) {
+    throw new Error(`cv.yaml: career_highlights needs a ${key} item for the hero`);
+  }
+}
 
 requireList(cv.career_arc, "career_arc", 3);
 cv.career_arc.forEach((stage, index) => requireFields(stage, ["period", "title", "description"], `career_arc[${index}]`));

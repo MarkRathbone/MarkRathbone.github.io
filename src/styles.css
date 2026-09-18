@@ -237,19 +237,20 @@ svg { width: 1.1em; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-
 .career-heading h2 { margin: 0; font-size: clamp(3rem, 6.5vw, 7rem); line-height: .84; letter-spacing: -.075em; text-transform: uppercase; }
 .career-heading h2 em { color: var(--blue); font-style: normal; }
 .career-heading > p:last-child { max-width: 720px; margin: 2rem 0 0; color: var(--timeline-copy); font-size: 1rem; line-height: 1.8; }
-.current-impact { margin-top: clamp(5rem, 9vw, 9rem); border-top: 3px solid var(--blue); background: linear-gradient(110deg, color-mix(in srgb, var(--blue) 7%, transparent), transparent 44%); }
-.current-impact-heading { display: grid; grid-template-columns: auto 1fr minmax(220px, 320px); align-items: end; gap: clamp(1rem, 2.5vw, 2.5rem); padding: 1.35rem clamp(1rem, 2vw, 2rem); }
-.current-impact-heading span { color: var(--yellow); font: 500 .62rem var(--mono); letter-spacing: .12em; text-transform: uppercase; }
-.current-impact-heading strong { font-size: clamp(1.35rem, 2.7vw, 2.8rem); line-height: .95; letter-spacing: -.045em; text-transform: uppercase; }
-.current-impact-heading p { margin: 0; color: var(--timeline-copy); font-size: .72rem; line-height: 1.55; }
-.impact-grid { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-.impact-metric { min-width: 0; padding: 1.7rem clamp(1rem, 2vw, 2rem); border-right: 1px solid var(--line); transition: background-color .2s ease, transform .2s ease; }
-.impact-metric:last-child { border-right: 0; }
-.impact-metric strong, .impact-metric span, .impact-metric small { display: block; }
-.impact-metric strong { color: var(--metric-accent); font-size: clamp(2rem, 4vw, 4.5rem); line-height: .9; letter-spacing: -.06em; }
-.impact-metric span { margin-top: .9rem; font-size: .78rem; font-weight: 800; text-transform: uppercase; }
-.impact-metric small { margin-top: .4rem; color: var(--muted); font: 400 .57rem/1.5 var(--mono); }
-@media (hover: hover) { .impact-metric:hover { background: color-mix(in srgb, var(--blue) 7%, transparent); transform: translateY(-3px); } }
+.career-highlights { margin-top: clamp(5rem, 9vw, 9rem); border-top: 3px solid var(--blue); background: linear-gradient(110deg, color-mix(in srgb, var(--blue) 7%, transparent), transparent 44%); }
+.career-highlights-heading { display: grid; grid-template-columns: auto 1fr minmax(220px, 320px); align-items: end; gap: clamp(1rem, 2.5vw, 2.5rem); padding: 1.35rem clamp(1rem, 2vw, 2rem); }
+.career-highlights-heading span { color: var(--yellow); font: 500 .62rem var(--mono); letter-spacing: .12em; text-transform: uppercase; }
+.career-highlights-heading strong { font-size: clamp(1.35rem, 2.7vw, 2.8rem); line-height: .95; letter-spacing: -.045em; text-transform: uppercase; }
+.career-highlights-heading p { margin: 0; color: var(--timeline-copy); font-size: .72rem; line-height: 1.55; }
+.highlight-grid { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.highlight-card { min-width: 0; padding: 1.7rem clamp(1rem, 2vw, 2rem); border-right: 1px solid var(--line); transition: background-color .2s ease, transform .2s ease; }
+.highlight-card:last-child { border-right: 0; }
+.highlight-card strong, .highlight-card span, .highlight-card small { display: block; }
+.highlight-card strong { color: var(--metric-accent); font-size: clamp(2rem, 4vw, 4.5rem); line-height: .95; letter-spacing: -.06em; }
+.highlight-card:not(.highlight-card-years) strong { font-size: clamp(1.35rem, 2.55vw, 2.5rem); letter-spacing: -.045em; }
+.highlight-card span { margin-top: .9rem; font-size: .78rem; font-weight: 800; text-transform: uppercase; }
+.highlight-card small { margin-top: .4rem; color: var(--muted); font: 400 .57rem/1.5 var(--mono); }
+@media (hover: hover) { .highlight-card:hover { background: color-mix(in srgb, var(--blue) 7%, transparent); transform: translateY(-3px); } }
 .arc-track { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1.5rem, 4vw, 4rem); margin-top: clamp(4rem, 7vw, 7rem); }
 .arc-track::before { content: ""; position: absolute; left: 1rem; right: 1rem; top: 20px; height: 1px; background: linear-gradient(90deg, var(--blue), var(--yellow), var(--blue)); opacity: .6; }
 .arc-stage { position: relative; padding-top: 4.6rem; }
@@ -404,9 +405,9 @@ body, .manifesto, .career-arc, .work, .experience, .skills, .contact, footer, .w
   .hero-visual { width: min(360px, 38vw); }
   .stat-card { display: none; }
   .manifesto { grid-template-columns: .25fr 1.5fr .65fr; gap: 2rem; }
-  .impact-grid { grid-template-columns: repeat(2, 1fr); }
-  .impact-metric:nth-child(2) { border-right: 0; }
-  .impact-metric:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+  .highlight-grid { grid-template-columns: repeat(2, 1fr); }
+  .highlight-card:nth-child(2) { border-right: 0; }
+  .highlight-card:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
   .work-card-1, .work-card-2 { grid-column: span 6; }
   .work-card-3 { grid-column: span 12; min-height: 330px; }
   .skill-layout { grid-template-columns: 1fr; }
@@ -427,11 +428,10 @@ body, .manifesto, .career-arc, .work, .experience, .skills, .contact, footer, .w
   .manifesto-mark { height: 7rem; }
   .manifesto-meta { margin-top: 3rem; }
   .career-heading h2 { font-size: clamp(2.8rem, 14vw, 4.6rem); }
-  .current-impact-heading { grid-template-columns: 1fr; align-items: start; gap: .45rem; padding: 1.25rem .85rem; }
-  .current-impact-heading p { margin-top: .3rem; }
-  .impact-grid { grid-template-columns: 1fr 1fr; }
-  .impact-metric { padding: 1.4rem .85rem; }
-  .impact-metric strong { font-size: clamp(1.8rem, 10vw, 3rem); }
+  .career-highlights-heading { grid-template-columns: 1fr; align-items: start; gap: .45rem; padding: 1.25rem .85rem; }
+  .career-highlights-heading p { margin-top: .3rem; }
+  .highlight-card { padding: 1.4rem .85rem; }
+  .highlight-card strong { font-size: clamp(1.8rem, 10vw, 3rem); }
   .arc-track { grid-template-columns: 1fr; gap: 2.5rem; margin-top: 4rem; padding-left: 1rem; }
   .arc-track::before { left: 20px; right: auto; top: 1rem; bottom: 1rem; width: 1px; height: auto; background: linear-gradient(var(--blue), var(--yellow), var(--blue)); }
   .arc-stage { padding: 0 0 0 4rem; }

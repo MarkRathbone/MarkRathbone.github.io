@@ -157,13 +157,17 @@ svg { width: 1.1em; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-
 .ambient-comet-one { left: 18%; bottom: 19%; animation: ambient-comet 13s ease-in-out infinite; }
 .ambient-comet-two { right: 13%; top: 27%; animation: ambient-comet 16s 3s ease-in-out infinite reverse; }
 .hero-theme-art { position: absolute; inset: 76px 0 0; z-index: -1; overflow: hidden; pointer-events: none; }
-.theme-glass { position: absolute; left: -4%; top: -5%; width: min(94vw, 1360px); height: 112%; opacity: .62; animation: glass-drift 20s ease-in-out infinite alternate; }
-.glass-facets polygon { fill: rgba(161, 218, 255, .07); }
-.glass-facets polygon:nth-child(3n + 2) { fill: rgba(194, 233, 255, .035); }
-.glass-facets polygon:nth-child(4n) { fill: rgba(93, 182, 255, .11); }
-.glass-cracks, .glass-flashes { fill: none; vector-effect: non-scaling-stroke; }
-.glass-cracks { stroke: rgba(169, 221, 255, .5); stroke-width: 1.5; }
-.glass-flashes { stroke: rgba(235, 249, 255, .7); stroke-width: 2.5; animation: glass-glint 7s ease-in-out infinite alternate; }
+.theme-glass { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .78; animation: glass-drift 20s ease-in-out infinite alternate; }
+.glass-shards path { fill: rgba(188, 230, 255, .08); stroke: rgba(219, 243, 255, .3); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.glass-shards path:nth-child(3n + 2) { fill: rgba(204, 237, 255, .035); }
+.glass-shards path:nth-child(4n) { fill: rgba(86, 186, 255, .14); }
+.glass-shards path.glass-shard-bright { fill: url(#glass-sheen); }
+.glass-fractures, .glass-impact, .glass-ring, .glass-glints { fill: none; vector-effect: non-scaling-stroke; }
+.glass-fractures { stroke: rgba(187, 231, 255, .35); stroke-width: 1.3; }
+.glass-impact { stroke: rgba(240, 250, 255, .62); stroke-width: 1.4; }
+.glass-ring { stroke: rgba(231, 247, 255, .42); stroke-width: 1; }
+.glass-glints { stroke: rgba(244, 252, 255, .76); stroke-width: 2; animation: glass-glint 7s ease-in-out infinite alternate; }
+.glass-splinters path { fill: rgba(194, 232, 255, .24); stroke: rgba(244, 252, 255, .48); stroke-width: 1; }
 .theme-sun, .theme-waves, .theme-cut, .arcana-deck { display: none; }
 .skip-link { position: fixed; left: 1rem; top: -5rem; z-index: 100; padding: .75rem 1rem; background: var(--yellow); color: var(--ink); font-weight: 800; }
 .skip-link:focus { top: 1rem; }
@@ -226,6 +230,8 @@ svg { width: 1.1em; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-
 
 /* Three original, CSS/SVG-only visual treatments. Motion is slow and optional. */
 :root[data-theme="mid"] .hero-visual::after { content: ""; position: absolute; z-index: -1; width: 44%; height: 56%; right: -21%; top: 10%; background: rgba(128, 206, 255, .18); clip-path: polygon(0 18%, 70% 0, 100% 25%, 58% 72%, 35% 100%, 12% 62%); }
+:root[data-theme="mid"] .ambient-shard { display: none; }
+:root[data-theme="mid"] .hero-grid { opacity: .12; }
 :root[data-theme="mid"] .career-arc::before { clip-path: polygon(6% 0, 75% 7%, 100% 27%, 57% 51%, 93% 77%, 25% 100%, 0 65%); }
 :root[data-theme="mid"] .work-card { background-image: linear-gradient(140deg, transparent 73%, rgba(167, 226, 255, .1) 73.2%, transparent 74%), linear-gradient(25deg, transparent 83%, rgba(167, 226, 255, .06) 83.2%, transparent 84%); }
 :root[data-theme="mid"] .work-card::after { width: 30px; height: 34px; border: 0; background: rgba(178, 229, 255, .65); clip-path: polygon(0 0, 100% 15%, 48% 100%); opacity: .7; }
@@ -479,7 +485,7 @@ body, .manifesto, .career-arc, .work, .experience, .skills, .contact, footer, .w
   .hero-grid { inset: 76px 0 40%; }
   .hero h1 { font-size: min(17vw, 4.6rem); line-height: .82; letter-spacing: -.085em; }
   .hero-visual { width: min(82vw, 380px); align-self: center; }
-  .theme-glass { left: -30%; top: -3%; width: 160%; opacity: .38; }
+  .theme-glass { opacity: .5; }
   :root[data-theme="light"] .theme-sun { right: -38%; top: 39%; width: 108vw; }
   :root[data-theme="light"] .theme-waves { left: -18%; bottom: 2%; width: 130%; opacity: .45; }
   :root[data-theme="light"] .arcana-deck { right: -9%; top: 40%; width: 42%; }

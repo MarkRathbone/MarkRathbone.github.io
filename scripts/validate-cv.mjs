@@ -8,6 +8,7 @@ const required = [
   "profile",
   "career_highlights",
   "career_arc",
+  "experience_intro",
   "skills",
   "experience",
   "earlier_experience",
@@ -58,6 +59,7 @@ for (const key of ["years", "approach"]) {
 
 requireList(cv.career_arc, "career_arc", 3);
 cv.career_arc.forEach((stage, index) => requireFields(stage, ["period", "title", "description"], `career_arc[${index}]`));
+requireFields(cv.experience_intro, ["eyebrow", "headline", "emphasis", "body"], "experience_intro");
 
 requireList(cv.skills, "skills");
 cv.skills.forEach((group, index) => {

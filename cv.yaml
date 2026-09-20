@@ -52,6 +52,12 @@ career_arc:
     title: Lead the system
     description: At ClearCare, I own platform direction, delivery engineering, release safety, and responsible experimentation, connecting engineering decisions to product, customer, and business outcomes.
 
+experience_intro:
+  eyebrow: The throughline
+  headline: Make it work.
+  emphasis: Make it easier.
+  body: I've moved from keeping cloud services running to building the tools and practices around them. The part I enjoy most is spotting what keeps slowing a team down, then fixing it for good.
+
 skills:
   - group: Delivery & reliability
     items:

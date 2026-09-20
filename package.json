@@ -10,9 +10,11 @@
     "npm": ">=12.0.2"
   },
   "scripts": {
+    "predev": "npm run generate:glass",
     "dev": "vite",
     "generate:cv": "node scripts/generate-cv.mjs",
-    "build": "npm run generate:cv && vite build",
+    "generate:glass": "node scripts/generate-glass.mjs",
+    "build": "npm run generate:cv && npm run generate:glass && vite build",
     "preview": "vite preview",
     "check": "node scripts/validate-cv.mjs && npm run build"
   },

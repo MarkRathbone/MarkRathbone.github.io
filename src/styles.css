@@ -156,7 +156,7 @@ svg { width: 1.1em; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-
 .ambient-comet { position: absolute; display: block; width: clamp(80px, 12vw, 170px); height: 1px; opacity: .16; background: linear-gradient(90deg, transparent, var(--yellow), var(--blue), transparent); transform: rotate(-18deg); will-change: transform, opacity; }
 .ambient-comet-one { left: 18%; bottom: 19%; animation: ambient-comet 13s ease-in-out infinite; }
 .ambient-comet-two { right: 13%; top: 27%; animation: ambient-comet 16s 3s ease-in-out infinite reverse; }
-.hero-theme-art { position: absolute; inset: 76px 0 0; z-index: -1; overflow: hidden; pointer-events: none; }
+.hero-theme-art { position: absolute; inset: 76px 0 0; z-index: -1; overflow: hidden; pointer-events: none; contain: paint; }
 .theme-glass { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .78; animation: glass-drift 20s ease-in-out infinite alternate; }
 .glass-shards path { fill: rgba(188, 230, 255, .08); stroke: rgba(219, 243, 255, .3); stroke-width: 1; vector-effect: non-scaling-stroke; }
 .glass-shards path:nth-child(3n + 2) { fill: rgba(204, 237, 255, .035); }
@@ -362,6 +362,19 @@ svg { width: 1.1em; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-
 .signal-motif i:nth-of-type(2) { top: 52%; }
 .signal-motif i:nth-of-type(3) { top: 71%; }
 .signal-motif i:nth-of-type(4) { top: 91%; }
+.experience-layout { display: grid; grid-template-columns: minmax(280px, 1fr) minmax(0, 1120px); gap: clamp(3rem, 5vw, 7rem); }
+.experience-intro { align-self: start; padding: 2rem 1rem 2rem 0; border-top: 1px solid var(--line); }
+.experience-intro h3 { max-width: 800px; margin: 1.25rem 0 2rem; font-size: clamp(3rem, 4.6vw, 6rem); line-height: .93; letter-spacing: -.075em; text-transform: uppercase; }
+.experience-intro h3 span { display: block; color: var(--blue); }
+.experience-intro > p:last-of-type { max-width: 560px; margin: 0; color: var(--timeline-copy); font-size: clamp(.95rem, 1.15vw, 1.15rem); line-height: 1.7; }
+.experience-intro-arc { display: grid; gap: 0; max-width: 520px; margin: clamp(4rem, 9vw, 10rem) 0 0; padding: 0; list-style: none; border-left: 1px solid var(--line); }
+.experience-intro-arc li { display: grid; grid-template-columns: 48px 1fr; align-items: start; position: relative; padding: 0 0 2.5rem 1.75rem; }
+.experience-intro-arc li:last-child { padding-bottom: 0; }
+.experience-intro-arc li::before { content: ""; position: absolute; left: -4px; top: 5px; width: 7px; height: 7px; background: var(--yellow); transform: rotate(45deg); }
+.experience-intro-arc li > span, .experience-intro-arc small { color: var(--blue); font: 500 .62rem var(--mono); }
+.experience-intro-arc small { display: block; margin-bottom: .45rem; color: var(--muted); }
+.experience-intro-arc strong { display: block; font-size: clamp(1.1rem, 1.65vw, 1.55rem); line-height: 1.1; text-transform: uppercase; letter-spacing: -.045em; }
+.experience-content { min-width: 0; }
 .timeline { max-width: 1120px; margin-left: auto; }
 .timeline-entry { display: grid; grid-template-columns: 65px 185px 1fr; position: relative; border-top: 1px solid var(--line); padding: 2.5rem 0; }
 .timeline-entry::before { content: ""; position: absolute; left: 0; top: -1px; width: 90px; height: 2px; background: var(--yellow); transform: scaleX(0); transform-origin: left; transition: transform .3s ease; }
@@ -388,6 +401,14 @@ details ul { max-width: 800px; padding-left: 1.2rem; color: var(--timeline-copy)
 .earlier > p { font: 500 .6rem var(--mono); color: var(--blue); text-transform: uppercase; letter-spacing: .12em; }
 .earlier > div { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 1rem; padding: .85rem 0; border-bottom: 1px solid var(--line); font-size: .78rem; }
 .earlier small { color: var(--muted); }
+
+@media (max-width: 1599px) {
+  .experience-layout { display: block; }
+  .experience-intro { display: grid; grid-template-columns: minmax(0, 1fr) minmax(240px, .8fr); gap: 0 clamp(2rem, 5vw, 5rem); margin-bottom: 4rem; }
+  .experience-intro .eyebrow, .experience-intro h3 { grid-column: 1; }
+  .experience-intro > p:last-of-type { grid-column: 1; }
+  .experience-intro-arc { grid-column: 2; grid-row: 1 / 4; align-self: center; margin: 0; }
+}
 
 .skills { position: relative; isolation: isolate; overflow: hidden; background: var(--paper); color: var(--paper-text); }
 .skills-motif { width: clamp(260px, 38vw, 600px); aspect-ratio: 1; left: -13%; bottom: -36%; opacity: .13; border: 1px solid var(--blue-deep); border-radius: 50%; animation: skills-orbit 28s linear infinite reverse; }
@@ -513,6 +534,9 @@ body, .manifesto, .career-arc, .work, .experience, .skills, .contact, footer, .w
   .work-card h3 { margin-top: 0; font-size: clamp(1.45rem, 7.2vw, 1.85rem); }
   .work-card p { margin-bottom: 1.25rem; }
   .work-motif { display: none; }
+  .experience-intro { display: block; margin-bottom: 3rem; padding: 1.5rem 0 0; }
+  .experience-intro h3 { font-size: clamp(2.7rem, 12vw, 4rem); margin-bottom: 1.2rem; }
+  .experience-intro-arc { display: none; }
   .timeline-entry { grid-template-columns: 40px 1fr; }
   .timeline-date { grid-column: 2; margin: .5rem 0 1.5rem; }
   .timeline-copy { grid-column: 2; }
@@ -539,6 +563,8 @@ body, .manifesto, .career-arc, .work, .experience, .skills, .contact, footer, .w
   .cursor-glow { display: none; }
   .ambient-glow, .ambient-shard, .ambient-ring, .ambient-comet { animation: none; will-change: auto; }
   .hero-theme-art *, .arcana-deck { animation: none !important; will-change: auto; }
+  .theme-glass { display: none; }
+  :root[data-theme="mid"] .hero-theme-art::before { content: ""; position: absolute; inset: 0; background: url("/glass-fracture.png") center / cover no-repeat; opacity: .78; }
   .hero-grid { mask-image: none; opacity: .09; }
   .portrait-frame img { filter: none; }
   .company-logo, .cert-panel { clip-path: none; }
@@ -547,6 +573,12 @@ body, .manifesto, .career-arc, .work, .experience, .skills, .contact, footer, .w
   .orbit { animation: none; }
   .work-card::before { display: none; }
   .work-motif, .skills-motif, .signal-motif::after, .manifesto::before, .manifesto::after, .contact-orbit { animation: none; }
+}
+
+@media (max-width: 720px) {
+  @supports (-moz-appearance: none) {
+    :root[data-theme="mid"] .hero-theme-art::before { opacity: .5; }
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

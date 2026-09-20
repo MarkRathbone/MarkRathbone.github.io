@@ -183,6 +183,33 @@ function App({ cv }) {
             <i className="ambient-shard ambient-shard-two" />
             <i className="ambient-shard ambient-shard-three" />
           </div>
+          <div className="hero-theme-art" aria-hidden="true">
+            <svg className="theme-glass" viewBox="0 0 1200 820" preserveAspectRatio="xMidYMid slice">
+              <g className="glass-facets">
+                <polygon points="0,130 310,0 475,250 225,305" />
+                <polygon points="310,0 780,0 665,208 475,250" />
+                <polygon points="475,250 665,208 608,396 320,475" />
+                <polygon points="0,130 225,305 0,465" />
+                <polygon points="225,305 475,250 320,475 90,610" />
+                <polygon points="665,208 1020,80 850,368 608,396" />
+                <polygon points="608,396 850,368 930,665 660,590" />
+                <polygon points="320,475 608,396 660,590 430,820" />
+                <polygon points="0,465 90,610 0,820" />
+                <polygon points="90,610 320,475 430,820 0,820" />
+              </g>
+              <path className="glass-cracks" d="M0 130 310 0 475 250 225 305 0 130ZM310 0 780 0 665 208 475 250M475 250 320 475 90 610 0 465M225 305 90 610M475 250 665 208 608 396 320 475M665 208 1020 80 850 368 608 396 660 590 430 820M608 396 850 368 930 665 660 590 320 475 430 820M0 465 0 820 90 610 430 820" />
+              <path className="glass-flashes" d="M475 250 390 358 320 475M665 208 745 145 1020 80M608 396 724 463 850 368M225 305 164 260 0 234" />
+            </svg>
+            <span className="theme-sun" />
+            <svg className="theme-waves" viewBox="0 0 900 260" preserveAspectRatio="none">
+              <path d="M-40 55 C115 -25 230 140 390 55 S660 -25 940 55" />
+              <path d="M-40 105 C115 25 230 190 390 105 S660 25 940 105" />
+              <path d="M-40 155 C115 75 230 240 390 155 S660 75 940 155" />
+              <path d="M-40 205 C115 125 230 290 390 205 S660 125 940 205" />
+            </svg>
+            <span className="theme-cut theme-cut-one" />
+            <span className="theme-cut theme-cut-two" />
+          </div>
           <div className="hero-grid" aria-hidden="true" />
           <div className="hero-copy reveal is-visible">
             <div className="status"><i /> Open to the right next role <span>UK · REMOTE</span></div>
@@ -196,6 +223,7 @@ function App({ cv }) {
           </div>
 
           <div className="hero-visual reveal is-visible">
+            <div className="arcana-deck" aria-hidden="true"><span /><span /><span /></div>
             <div className="portrait-frame">
               <div className="portrait-label">ENG / 01</div>
               <img src={cv.personal.portrait} alt={`Portrait of ${cv.personal.name}`} fetchPriority="high" decoding="async" />

@@ -301,8 +301,8 @@ function App({ cv }) {
               <p className="eyebrow">{cv.experience_intro.eyebrow}</p>
               <h3>{cv.experience_intro.headline}<span>{cv.experience_intro.emphasis}</span></h3>
               <p>{cv.experience_intro.body}</p>
-              <ol className="experience-intro-arc" aria-label="Career chapters">
-                {cv.career_arc.map((stage, index) => (
+              <ol className="experience-intro-arc" aria-label="Career chapters, newest first">
+                {[...cv.career_arc].reverse().map((stage, index) => (
                   <li key={stage.period}><span>{String(index + 1).padStart(2, "0")}</span><div><small>{stage.period}</small><strong>{stage.title}</strong></div></li>
                 ))}
               </ol>

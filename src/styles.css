@@ -453,8 +453,9 @@ details ul { max-width: 800px; padding-left: 1.2rem; color: var(--timeline-copy)
 .contact-orbit i { position: absolute; width: 6px; height: 6px; background: var(--accent-text); transform: rotate(45deg); }
 .contact-orbit i:nth-of-type(1) { right: 18%; top: 18%; }
 .contact-orbit i:nth-of-type(2) { left: 34%; bottom: 6%; }
-footer { min-height: 110px; padding: 2rem clamp(1.25rem, 5vw, 5rem); display: flex; align-items: center; justify-content: space-between; gap: 2rem; color: var(--muted); background: var(--footer-bg); font: 400 .58rem var(--mono); text-transform: uppercase; letter-spacing: .06em; }
+footer { min-height: 76px; padding: .75rem clamp(1.25rem, 5vw, 5rem); display: flex; align-items: center; justify-content: space-between; gap: 1.25rem; color: var(--muted); background: var(--footer-bg); font: 400 .58rem var(--mono); text-transform: uppercase; letter-spacing: .06em; }
 footer .monogram { color: var(--white); font: 900 1.2rem var(--display); }
+footer p { margin: 0; }
 
 body, .manifesto, .career-arc, .work, .experience, .skills, .contact, footer, .work-card, .cert-panel, .mode-picker { transition: background-color .35s ease, color .35s ease, border-color .35s ease; }
 
@@ -510,7 +511,10 @@ body, .manifesto, .career-arc, .work, .experience, .skills, .contact, footer, .w
   :root[data-theme="light"] .theme-sun { right: -38%; top: 39%; width: 108vw; }
   :root[data-theme="light"] .theme-waves { left: -18%; bottom: 2%; width: 130%; opacity: .45; }
   :root[data-theme="light"] .arcana-deck { right: -9%; top: 40%; width: 42%; }
-  :root[data-theme="dark"] .theme-cut-one { width: 100%; opacity: .2; }
+  :root[data-theme="dark"] .hero::before { inset: 0; clip-path: polygon(0 0, 100% 0, 100% 76%, 0 92%); }
+  :root[data-theme="dark"] .hero-grid { inset: 76px 0 0; clip-path: polygon(0 0, 100% 0, 100% 73%, 0 91%); }
+  :root[data-theme="dark"] .theme-cut-one { left: -14%; top: 28%; width: 112%; height: 12%; opacity: .2; transform: rotate(-7deg); }
+  :root[data-theme="dark"] .theme-cut-two { right: -18%; bottom: 14%; width: 62%; height: 10%; opacity: .25; transform: rotate(7deg); }
   .scroll-cue { display: none; }
   .section-pad { padding: 5rem 1.25rem; }
   .manifesto { display: block; }
@@ -549,7 +553,10 @@ body, .manifesto, .career-arc, .work, .experience, .skills, .contact, footer, .w
   .contact { min-height: 600px; }
   .contact-links { flex-direction: column; gap: 1rem; }
   .contact-slash { right: 8%; width: 27vw; opacity: .45; }
-  footer { align-items: flex-start; flex-direction: column; }
+  footer { min-height: 76px; padding: .75rem 1.25rem; gap: .65rem; font-size: clamp(.42rem, 1.85vw, .54rem); white-space: nowrap; }
+  footer .monogram { font-size: 1rem; }
+  footer p:nth-child(2) { text-align: center; }
+  footer p:last-child { text-align: right; }
 }
 
 @media (hover: none) {

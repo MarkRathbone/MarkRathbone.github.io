@@ -382,7 +382,7 @@ function App({ cv }) {
 
       <footer>
         <a className="monogram" href="#top">MR<span>.</span></a>
-        <p>Built from the same YAML as my CV.</p>
+        <p>Platform engineering · DevOps</p>
         <p>© {new Date().getFullYear()} {cv.personal.name}</p>
       </footer>
     </div>

@@ -42,6 +42,9 @@
   --slice-shadow: rgba(46, 156, 255, .6);
   --display: Inter, Arial, sans-serif;
   --mono: "DM Mono", monospace;
+  --content-edge: 900px;
+  --section-gutter: max(clamp(1.25rem, 8vw, 8rem), calc(50vw - var(--content-edge)));
+  --chrome-gutter: max(clamp(1.25rem, 5vw, 5rem), calc(50vw - var(--content-edge)));
   color-scheme: dark;
   scroll-behavior: smooth;
 }
@@ -171,7 +174,7 @@ svg { width: 1.1em; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-
 .skip-link { position: fixed; left: 1rem; top: -5rem; z-index: 100; padding: .75rem 1rem; background: var(--yellow); color: var(--ink); font-weight: 800; }
 .skip-link:focus { top: 1rem; }
 
-.topbar { height: 76px; padding: 0 clamp(1.25rem, 5vw, 5rem); display: flex; align-items: center; justify-content: space-between; position: fixed; inset: 0 0 auto; z-index: 70; border-bottom: 1px solid var(--line); transition: background-color .25s ease, box-shadow .25s ease; }
+.topbar { height: 76px; padding: 0 var(--chrome-gutter); display: flex; align-items: center; justify-content: space-between; position: fixed; inset: 0 0 auto; z-index: 70; border-bottom: 1px solid var(--line); transition: background-color .25s ease, box-shadow .25s ease; }
 .topbar.is-scrolled { background: color-mix(in srgb, var(--ink) 94%, transparent); box-shadow: 0 8px 28px rgba(0,0,0,.14); }
 .monogram { font-size: 1.35rem; font-weight: 900; letter-spacing: -.08em; }
 .monogram span { color: var(--yellow); }
@@ -193,7 +196,7 @@ svg { width: 1.1em; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-
 .mini-cv { padding: .6rem .8rem; display: flex; align-items: center; gap: .5rem; background: var(--yellow); color: var(--control-text); font: 700 .68rem var(--mono); text-transform: uppercase; transform: skew(-5deg); transition: transform .2s ease, box-shadow .2s ease; }
 .mini-cv:hover { transform: skew(-5deg) translate(-2px, -2px); box-shadow: 4px 4px 0 var(--blue); }
 
-.hero { min-height: 820px; height: 100svh; position: relative; display: grid; grid-template-columns: minmax(0, 1.04fr) minmax(360px, .96fr); align-items: center; padding: 8rem clamp(1.25rem, 8vw, 8rem) 5rem; isolation: isolate; }
+.hero { min-height: 820px; height: 100svh; position: relative; display: grid; grid-template-columns: minmax(0, 1.04fr) minmax(360px, .96fr); align-items: center; padding: 8rem var(--section-gutter) 5rem; isolation: isolate; }
 .hero::before { content: ""; position: absolute; z-index: -2; inset: 0 43% 0 0; background: linear-gradient(145deg, var(--blue-deep), var(--hero-end) 70%); clip-path: polygon(0 0, 86% 0, 100% 100%, 0 100%); }
 .hero::after { content: ""; position: absolute; z-index: -3; inset: 0; background: radial-gradient(circle at 75% 45%, var(--hero-glow) 0, var(--ink) 43%); }
 .hero-grid { position: absolute; inset: 76px 43% 0 0; z-index: -1; opacity: .18; background-image: linear-gradient(var(--grid-line) 1px, transparent 1px), linear-gradient(90deg, var(--grid-line) 1px, transparent 1px); background-size: 54px 54px; mask-image: linear-gradient(to right, #000, transparent); }
@@ -223,7 +226,7 @@ svg { width: 1.1em; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-
 .stat-card-top { right: -12%; top: 22%; }
 .stat-card-bottom { left: -15%; bottom: 11%; }
 .orbit { position: absolute; top: -2rem; left: -3rem; font: 500 .52rem var(--mono); letter-spacing: .16em; color: var(--muted); transform: rotate(-8deg); animation: orbit-drift 7s ease-in-out infinite alternate; }
-.scroll-cue { position: absolute; left: clamp(1.25rem, 5vw, 5rem); bottom: 2rem; display: flex; align-items: center; gap: 1rem; font: 400 .58rem var(--mono); text-transform: uppercase; letter-spacing: .12em; color: var(--accent-muted); }
+.scroll-cue { position: absolute; left: var(--section-gutter); bottom: 2rem; display: flex; align-items: center; gap: 1rem; font: 400 .58rem var(--mono); text-transform: uppercase; letter-spacing: .12em; color: var(--accent-muted); }
 .scroll-cue i { display: block; width: 70px; height: 1px; background: var(--accent-line); position: relative; }
 .scroll-cue i::after { content: ""; position: absolute; width: 18px; height: 1px; background: var(--yellow); animation: scan 2s infinite; }
 
@@ -270,7 +273,7 @@ svg { width: 1.1em; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-
 :root[data-theme="dark"] .work-card::after { width: 62px; height: 12px; border: 0; background: var(--blue); clip-path: polygon(0 0, 100% 0, 90% 100%, 12% 75%); opacity: .85; }
 :root[data-theme="dark"] .work-card h3 { text-shadow: 2px 2px 0 rgba(169, 13, 43, .48); }
 
-.section-pad { padding: clamp(6rem, 10vw, 10rem) clamp(1.25rem, 8vw, 8rem); }
+.section-pad { padding: clamp(6rem, 10vw, 10rem) var(--section-gutter); }
 .manifesto { position: relative; isolation: isolate; overflow: hidden; display: grid; grid-template-columns: .55fr 1.5fr .7fr; gap: clamp(2rem, 6vw, 7rem); align-items: start; background: var(--paper); color: var(--paper-text); }
 .manifesto::before { content: ""; position: absolute; z-index: -1; width: clamp(260px, 34vw, 520px); aspect-ratio: 1; right: -12%; bottom: -48%; border: 1px solid var(--blue); border-radius: 50%; opacity: .1; box-shadow: inset 0 0 0 3.5rem color-mix(in srgb, var(--blue) 3%, transparent), inset 0 0 0 7rem color-mix(in srgb, var(--yellow) 2%, transparent); animation: profile-drift 20s ease-in-out infinite alternate; }
 .manifesto::after { content: "+  +  +"; position: absolute; z-index: -1; left: 5%; bottom: 2.5rem; color: var(--blue); opacity: .2; font: 500 .6rem var(--mono); letter-spacing: 2.2rem; animation: profile-signal 8s ease-in-out infinite alternate; }
@@ -452,7 +455,7 @@ details ul { max-width: 800px; padding-left: 1.2rem; color: var(--timeline-copy)
 .contact-orbit i { position: absolute; width: 6px; height: 6px; background: var(--accent-text); transform: rotate(45deg); }
 .contact-orbit i:nth-of-type(1) { right: 18%; top: 18%; }
 .contact-orbit i:nth-of-type(2) { left: 34%; bottom: 6%; }
-footer { min-height: 76px; padding: .75rem clamp(1.25rem, 5vw, 5rem); display: flex; align-items: center; justify-content: space-between; gap: 1.25rem; color: var(--muted); background: var(--footer-bg); font: 400 .58rem var(--mono); text-transform: uppercase; letter-spacing: .06em; }
+footer { min-height: 76px; padding: .75rem var(--chrome-gutter); display: flex; align-items: center; justify-content: space-between; gap: 1.25rem; color: var(--muted); background: var(--footer-bg); font: 400 .58rem var(--mono); text-transform: uppercase; letter-spacing: .06em; }
 footer .monogram { color: var(--white); font: 900 1.2rem var(--display); }
 footer p { margin: 0; }
 

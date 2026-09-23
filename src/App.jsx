@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import Glass from "./Glass";
+import Water from "./Water";
 
 const Arrow = () => <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" /></svg>;
 const Download = () => <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0 5-5m-5 5-5-5M5 20h14" /></svg>;
@@ -185,7 +185,7 @@ function App({ cv }) {
             <i className="ambient-shard ambient-shard-three" />
           </div>
           <div className="hero-theme-art" aria-hidden="true">
-            <Glass />
+            <Water />
             <span className="theme-sun" />
             <svg className="theme-waves" viewBox="0 0 900 260" preserveAspectRatio="none">
               <path d="M-40 55 C115 -25 230 140 390 55 S660 -25 940 55" />

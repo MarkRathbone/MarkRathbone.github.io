@@ -156,18 +156,17 @@ svg { width: 1.1em; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-
 .ambient-comet { position: absolute; display: block; width: clamp(80px, 12vw, 170px); height: 1px; opacity: .16; background: linear-gradient(90deg, transparent, var(--yellow), var(--blue), transparent); transform: rotate(-18deg); will-change: transform, opacity; }
 .ambient-comet-one { left: 18%; bottom: 19%; animation: ambient-comet 13s ease-in-out infinite; }
 .ambient-comet-two { right: 13%; top: 27%; animation: ambient-comet 16s 3s ease-in-out infinite reverse; }
-.hero-theme-art { position: absolute; inset: 76px 0 0; z-index: -1; overflow: hidden; pointer-events: none; contain: paint; }
-.theme-glass { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .78; animation: glass-drift 20s ease-in-out infinite alternate; }
-.glass-shards path { fill: rgba(188, 230, 255, .08); stroke: rgba(219, 243, 255, .3); stroke-width: 1; vector-effect: non-scaling-stroke; }
-.glass-shards path:nth-child(3n + 2) { fill: rgba(204, 237, 255, .035); }
-.glass-shards path:nth-child(4n) { fill: rgba(86, 186, 255, .14); }
-.glass-shards path.glass-shard-bright { fill: url(#glass-sheen); }
-.glass-fractures, .glass-impact, .glass-ring, .glass-glints { fill: none; vector-effect: non-scaling-stroke; }
-.glass-fractures { stroke: rgba(187, 231, 255, .35); stroke-width: 1.3; }
-.glass-impact { stroke: rgba(240, 250, 255, .62); stroke-width: 1.4; }
-.glass-ring { stroke: rgba(231, 247, 255, .42); stroke-width: 1; }
-.glass-glints { stroke: rgba(244, 252, 255, .76); stroke-width: 2; animation: glass-glint 7s ease-in-out infinite alternate; }
-.glass-splinters path { fill: rgba(194, 232, 255, .24); stroke: rgba(244, 252, 255, .48); stroke-width: 1; }
+.hero-theme-art { position: absolute; inset: 75px 0 0; z-index: -1; overflow: hidden; pointer-events: none; contain: paint; }
+.theme-water { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.water-depth { opacity: .72; }
+.water-rays { opacity: .72; }
+.water-rays path { fill: url(#water-ray); stroke: none; animation: water-ray-pulse 9s ease-in-out infinite alternate; }
+.water-rays path:nth-child(2), .water-rays path:nth-child(4) { animation-delay: -4s; opacity: .65; }
+.water-surface { animation: water-surface-drift 13s ease-in-out infinite alternate; }
+.water-surface-fill { fill: url(#water-surface); stroke: none; }
+.water-surface path:not(.water-surface-fill) { fill: none; stroke: rgba(213, 250, 255, .48); stroke-width: 2; vector-effect: non-scaling-stroke; }
+.water-caustics { fill: none; stroke: rgba(174, 237, 255, .16); stroke-width: 1.2; vector-effect: non-scaling-stroke; animation: water-caustics-drift 18s ease-in-out infinite alternate; }
+.water-bubble { fill: rgba(199, 245, 255, .12); stroke: rgba(217, 250, 255, .5); stroke-width: 1; vector-effect: non-scaling-stroke; opacity: var(--bubble-opacity); transform: translateY(var(--bubble-static-y)); animation: water-bubble-rise var(--bubble-duration) var(--bubble-delay) linear infinite; }
 .theme-sun, .theme-waves, .theme-cut, .arcana-deck { display: none; }
 .skip-link { position: fixed; left: 1rem; top: -5rem; z-index: 100; padding: .75rem 1rem; background: var(--yellow); color: var(--ink); font-weight: 800; }
 .skip-link:focus { top: 1rem; }
@@ -236,7 +235,7 @@ svg { width: 1.1em; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-
 :root[data-theme="mid"] .work-card { background-image: linear-gradient(140deg, transparent 73%, rgba(167, 226, 255, .1) 73.2%, transparent 74%), linear-gradient(25deg, transparent 83%, rgba(167, 226, 255, .06) 83.2%, transparent 84%); }
 :root[data-theme="mid"] .work-card::after { width: 30px; height: 34px; border: 0; background: rgba(178, 229, 255, .65); clip-path: polygon(0 0, 100% 15%, 48% 100%); opacity: .7; }
 
-:root[data-theme="light"] .theme-glass, :root[data-theme="dark"] .theme-glass { display: none; }
+:root[data-theme="light"] .theme-water, :root[data-theme="dark"] .theme-water { display: none; }
 :root[data-theme="light"] .ambient-shard, :root[data-theme="light"] .ambient-ring, :root[data-theme="light"] .ambient-comet, :root[data-theme="light"] .hero-grid { display: none; }
 :root[data-theme="light"] .theme-sun { display: block; position: absolute; right: -7%; top: 2%; width: min(70vw, 880px); aspect-ratio: 1; border-radius: 50%; opacity: .62; background: repeating-conic-gradient(from -8deg, rgba(255, 248, 208, .48) 0deg 7deg, rgba(205, 103, 38, .14) 7deg 15deg, transparent 15deg 22deg); animation: sun-turn 90s linear infinite; }
 :root[data-theme="light"] .theme-sun::before, :root[data-theme="light"] .theme-sun::after { content: ""; position: absolute; border-radius: 50%; }
@@ -469,8 +468,10 @@ body, .manifesto, .career-arc, .work, .experience, .skills, .contact, footer, .w
 @keyframes hero-glow { to { opacity: .11; transform: translate3d(-3vw, 2vh, 0) scale(1.05); } }
 @keyframes ambient-orbit { to { transform: rotate(360deg); } }
 @keyframes ambient-comet { 0%, 100% { opacity: .05; transform: translate3d(-24px, 16px, 0) rotate(-18deg); } 50% { opacity: .22; transform: translate3d(28px, -18px, 0) rotate(-18deg); } }
-@keyframes glass-drift { to { transform: translate3d(12px, -10px, 0); } }
-@keyframes glass-glint { to { opacity: .25; } }
+@keyframes water-surface-drift { to { transform: translate3d(-28px, 8px, 0); } }
+@keyframes water-caustics-drift { to { transform: translate3d(22px, 12px, 0); opacity: .58; } }
+@keyframes water-ray-pulse { to { opacity: .48; } }
+@keyframes water-bubble-rise { from { transform: translate3d(0, 980px, 0); } to { transform: translate3d(var(--bubble-drift), -80px, 0); } }
 @keyframes sun-turn { to { transform: rotate(360deg); } }
 @keyframes wave-drift { to { transform: translate3d(22px, 0, 0); } }
 @keyframes deck-float { to { transform: translate3d(0, -9px, 0); } }
@@ -507,7 +508,7 @@ body, .manifesto, .career-arc, .work, .experience, .skills, .contact, footer, .w
   .hero-grid { inset: 76px 0 40%; }
   .hero h1 { font-size: min(17vw, 4.6rem); line-height: .82; letter-spacing: -.085em; }
   .hero-visual { width: min(82vw, 380px); align-self: center; }
-  .theme-glass { opacity: .5; }
+  .theme-water { opacity: .72; }
   :root[data-theme="light"] .theme-sun { right: -38%; top: 39%; width: 108vw; }
   :root[data-theme="light"] .theme-waves { left: -18%; bottom: 2%; width: 130%; opacity: .45; }
   :root[data-theme="light"] .arcana-deck { right: -9%; top: 40%; width: 42%; }
@@ -570,8 +571,6 @@ body, .manifesto, .career-arc, .work, .experience, .skills, .contact, footer, .w
   .cursor-glow { display: none; }
   .ambient-glow, .ambient-shard, .ambient-ring, .ambient-comet { animation: none; will-change: auto; }
   .hero-theme-art *, .arcana-deck { animation: none !important; will-change: auto; }
-  .theme-glass { display: none; }
-  :root[data-theme="mid"] .hero-theme-art::before { content: ""; position: absolute; inset: 0; background: url("/glass-fracture.png") center / cover no-repeat; opacity: .78; }
   .hero-grid { mask-image: none; opacity: .09; }
   .portrait-frame img { filter: none; }
   .company-logo, .cert-panel { clip-path: none; }
@@ -580,12 +579,6 @@ body, .manifesto, .career-arc, .work, .experience, .skills, .contact, footer, .w
   .orbit { animation: none; }
   .work-card::before { display: none; }
   .work-motif, .skills-motif, .signal-motif::after, .manifesto::before, .manifesto::after, .contact-orbit { animation: none; }
-}
-
-@media (max-width: 720px) {
-  @supports (-moz-appearance: none) {
-    :root[data-theme="mid"] .hero-theme-art::before { opacity: .5; }
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {

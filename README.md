@@ -32,7 +32,7 @@ Build the production site and themed PDFs:
 npm run build
 ```
 
-The website is written to `dist/`. Crimson, cobalt, and gold CV variants are generated temporarily in `public/`, alongside the JSON data, social card, and Firefox-friendly cobalt glass image, before Vite copies them into the build. The active website theme selects the matching CV download; `mark-rathbone-cv.pdf` remains a cobalt compatibility copy. All generated outputs are ignored by Git.
+The website is written to `dist/`. Crimson, cobalt, and gold CV variants are generated temporarily in `public/`, alongside the JSON data and social card, before Vite copies them into the build. The active website theme selects the matching CV download; `mark-rathbone-cv.pdf` remains a cobalt compatibility copy. All generated outputs are ignored by Git.
 
 Run the same validation used by CI:
 
@@ -53,7 +53,6 @@ cv.yaml                 Single source of truth
 src/                    Portfolio UI
 scripts/validate-cv.mjs YAML validation
 scripts/generate-cv.mjs Print-ready PDF generator
-scripts/generate-glass.mjs Firefox glass-image generator
 public/                 Source images; generated assets exist here only during builds
 .github/workflows/      Build and Pages deployment
 ```

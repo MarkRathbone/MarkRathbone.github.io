@@ -104,7 +104,7 @@ experience:
     location: Ottawa, Canada
     start: October 2025
     end: February 2026
-    logo: /company-logos/searidge.png
+    logo: /company-logos/searidge.jpg
     summary: Improved and stabilised CI/CD and infrastructure workflows within an AWS-based environment, focusing on consistency, automation, and maintainability.
     highlights:
       - Refactored GitLab CI/CD pipelines, defining a clearer architecture for future deployment workflows.

@@ -13,6 +13,43 @@ const bubbles = Array.from({ length: 24 }, (_, index) => {
   };
 });
 
+const waveBlueprints = [
+  { y: 38, amplitude: 25, wavelength: 430, duration: 13, opacity: .55 },
+  { y: 75, amplitude: 19, wavelength: 520, duration: 18, opacity: .42 },
+  { y: 112, amplitude: 14, wavelength: 360, duration: 11.5, opacity: .32 },
+];
+
+function buildWavePath({ y, amplitude, wavelength }) {
+  const start = wavelength * -2;
+  const end = 1440 + wavelength * 2;
+  let path = `M ${start} ${y}`;
+
+  for (let x = start, crest = true; x < end; x += wavelength / 2, crest = !crest) {
+    const midpoint = x + wavelength / 2;
+    const control = x + wavelength / 4;
+    const controlY = y + (crest ? -amplitude : amplitude);
+    path += ` Q ${control} ${controlY} ${midpoint} ${y}`;
+  }
+
+  return path;
+}
+
+const surfaceWaves = waveBlueprints.map((wave, index) => {
+  const duration = wave.duration * (.86 + Math.random() * .28);
+  const bobDuration = 4.5 + Math.random() * 4;
+  return {
+    ...wave,
+    d: buildWavePath(wave),
+    duration,
+    delay: -Math.random() * duration,
+    bobDuration,
+    bobDelay: -Math.random() * bobDuration,
+    lift: -3 + Math.random() * 6,
+    opacity: wave.opacity * (.86 + Math.random() * .24),
+    direction: index === 1 ? "reverse" : Math.random() > .35 ? "normal" : "reverse",
+  };
+});
+
 export default function Water() {
   return (
     <svg className="theme-water" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
@@ -45,9 +82,29 @@ export default function Water() {
 
       <g className="water-surface">
         <path className="water-surface-fill" d="M-80 0h1600v72c-123-33-220 27-345 5-126-23-224-65-351-29-129 37-250 8-365-15C317 5 165 88-80 51Z" />
-        <path d="M-80 38c116-49 207 28 325 5s228-58 346-13 233 45 350 2 248-26 579 17" />
-        <path d="M-80 72c143-44 250 29 389 0 141-29 258-57 387-5 132 52 253 21 365-5 116-27 261-3 459 34" />
-        <path d="M-80 111c127-36 239 12 353-7 113-19 218-43 339-2 120 41 258 26 391-3 133-28 282-8 517 29" />
+        {surfaceWaves.map((wave) => (
+          <g
+            className="water-wave-track"
+            key={wave.y}
+            style={{
+              "--wave-delay": `${wave.delay}s`,
+              "--wave-distance": `${-wave.wavelength}px`,
+              "--wave-duration": `${wave.duration}s`,
+              animationDirection: wave.direction,
+            }}
+          >
+            <path
+              className="water-wave"
+              d={wave.d}
+              style={{
+                "--wave-bob-delay": `${wave.bobDelay}s`,
+                "--wave-bob-duration": `${wave.bobDuration}s`,
+                "--wave-lift": `${wave.lift}px`,
+                "--wave-opacity": wave.opacity,
+              }}
+            />
+          </g>
+        ))}
       </g>
 
       <g className="water-caustics">

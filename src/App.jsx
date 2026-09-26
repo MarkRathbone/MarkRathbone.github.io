@@ -16,9 +16,13 @@ const THEMES = [
 const THEME_IDS = THEMES.map(({ id }) => id);
 const THEME_COLOURS = { dark: "#10090b", mid: "#071120", light: "#f6edcf" };
 const NAV_ITEMS = [
+  { id: "top", label: "Intro" },
+  { id: "profile", label: "Profile" },
+  { id: "career", label: "Career" },
   { id: "work", label: "Work" },
   { id: "experience", label: "Timeline" },
   { id: "skills", label: "Skills" },
+  { id: "contact", label: "Contact" },
 ];
 
 function getInitialTheme() {
@@ -49,6 +53,7 @@ function App({ cv }) {
   const [theme, setTheme] = useState(getInitialTheme);
   const cursorGlow = useRef(null);
   const scrollProgress = useRef(null);
+  const navRef = useRef(null);
   const careerHighlights = cv.career_highlights ?? [];
   const highlights = Object.fromEntries(careerHighlights.map((item) => [item.key, item]));
   const cvDownload = THEMES.find(({ id }) => id === theme)?.cv ?? "/mark-rathbone-cv.pdf";
@@ -111,6 +116,18 @@ function App({ cv }) {
   }, []);
 
   useEffect(() => {
+    const nav = navRef.current;
+    if (!nav || !activeSection || nav.scrollWidth <= nav.clientWidth) return;
+    const currentLink = [...nav.querySelectorAll("a")].find(({ hash }) => hash === `#${activeSection}`);
+    if (!currentLink) return;
+    const target = currentLink.offsetLeft - (nav.clientWidth - currentLink.offsetWidth) / 2;
+    nav.scrollTo({
+      left: Math.max(0, target),
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+    });
+  }, [activeSection]);
+
+  useEffect(() => {
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const firefox = navigator.userAgent.includes("Firefox");
     if (reducedMotion || firefox || !cursorGlow.current) return undefined;
@@ -148,7 +165,7 @@ function App({ cv }) {
       <a className="skip-link" href="#main">Skip to content</a>
       <header className="topbar">
         <a className="monogram" href="#top" aria-label="Mark Rathbone, home">MR<span>.</span></a>
-        <nav aria-label="Main navigation">
+        <nav ref={navRef} aria-label="Main navigation">
           {NAV_ITEMS.map(({ id, label }) => (
             <a className={activeSection === id ? "is-active" : ""} aria-current={activeSection === id ? "location" : undefined} href={`#${id}`} key={id}>{label}</a>
           ))}
@@ -223,7 +240,7 @@ function App({ cv }) {
           <div className="scroll-cue"><span>Explore</span><i /></div>
         </section>
 
-        <section className="manifesto section-pad">
+        <section className="manifesto section-pad" id="profile">
           <p className="vertical-word" aria-hidden="true">PROFILE</p>
           <div className="manifesto-mark reveal">“</div>
           <div className="manifesto-copy reveal">
@@ -239,7 +256,7 @@ function App({ cv }) {
           </div>
         </section>
 
-        <section className="career-arc section-pad" aria-labelledby="career-arc-title">
+        <section className="career-arc section-pad" id="career" aria-labelledby="career-arc-title">
           <div className="career-heading reveal">
             <p className="eyebrow">Career trajectory</p>
             <h2 id="career-arc-title">Built in layers.<br /><em>Leading the whole system.</em></h2>

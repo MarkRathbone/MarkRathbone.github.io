@@ -1,6 +1,6 @@
 # Mark Rathbone — portfolio and CV as code
 
-The website, downloadable PDF CV, machine-readable CV data, and social preview image are generated from [`cv.yaml`](./cv.yaml). Generated outputs are not stored in source control: GitHub Actions creates and deploys them on every release.
+The website, downloadable PDF CV, machine-readable CV data, and social preview image are generated from [`cv.yaml`](./cv.yaml). Generated outputs are not stored in source control: GitHub Actions creates, checks, and deploys them on every push to `master`.
 
 ## Edit the CV
 
@@ -19,10 +19,11 @@ Experience entries may include a `logo` path beneath their dates. Store those as
 
 ## Work locally
 
-Requires Node.js 24.21 or newer and npm 12.0.2 or newer.
+Use the Node version pinned in [`.node-version`](./.node-version), with a compatible version manager, and the npm version in `package.json`'s `packageManager` field. CI reads these same values.
 
 ```bash
-npm install
+npm install --global "$(node -p 'require("./package.json").packageManager')"
+npm ci
 npm run dev
 ```
 
@@ -40,7 +41,7 @@ Run the same validation used by CI:
 npm run check
 ```
 
-## Animation checks
+## Browser checks
 
 Firefox and Chromium receive the same moving artwork. Cobalt's water and ambience
 use one canvas with cached artwork, a bounded bitmap, and up to 30 background
@@ -48,24 +49,51 @@ updates per second. Other effects use CSS transforms and opacity. Off-screen
 sections and hidden tabs pause their animation; reduced-motion preferences are
 honoured, including changes made while the page is open.
 
-To check animation behaviour and report frame timings in both browsers, build the
-site, install Firefox for Puppeteer, and start `npm run preview` in another terminal:
+To run the same Firefox and Chromium checks as CI:
 
 ```bash
-npx puppeteer browsers install firefox
-npm run check:motion
+npm exec --no -- puppeteer browsers install firefox
+npm run check
+npm run check:site
 ```
 
-The check covers desktop, mobile, ultrawide, theme changes, cursor glow, off-screen
-pausing, and reduced motion. Frame timings are diagnostic, since headless hosts
-can render in software. Use `FIREFOX_PATH` for an existing Firefox installation or
-`MOTION_CHECK_URL` to test a different local server.
+`check:site` starts a local production preview and closes it after the checks,
+including when a check fails. It covers desktop, mobile, ultrawide, navigation
+targets, theme-specific PDF downloads, animation, off-screen pausing, reduced
+motion, and browser errors. Frame timings are diagnostic, not pass/fail thresholds,
+since headless hosts can render in software.
+
+Use `FIREFOX_PATH` for an existing Firefox installation. To test a server that is
+already running, use `MOTION_CHECK_URL=http://127.0.0.1:4173/ npm run check:motion`.
 
 ## Deploy
 
-The workflow in `.github/workflows/deploy.yml` runs on pushes to `main` or `master`. It validates `cv.yaml`, generates every derived asset, builds the site, uploads the finished `dist/` directory, and deploys that artifact to Pages.
+The single workflow in [`.github/workflows/deploy.yml`](./.github/workflows/deploy.yml)
+validates pull requests targeting `master` and pushes to `master`. It validates
+`cv.yaml`, generates every derived asset, builds the site, and checks the finished
+build in Firefox and Chromium before uploading it for deployment.
+
+The build job has a read-only repository token. Only the separate deployment job
+has Pages write and OIDC permissions, and it deploys only from `master`, never from
+a pull request. Manual runs on other branches validate without deploying. Stale
+checks are cancelled; an active deployment is allowed to finish. Both jobs have
+explicit 15-minute timeouts.
 
 In the repository settings, set **Pages → Build and deployment → Source** to **GitHub Actions** once. No `gh-pages` branch, committed build output, or deploy token is required.
+
+Apply these repository settings on GitHub; workflow files alone cannot enforce them:
+
+- Protect `master` with a ruleset requiring pull requests and the **Validate, build and test** status check. No mandatory reviewer is needed for a solo-maintained portfolio.
+- Restrict the **github-pages** environment's deployment branches to `master`.
+- Enable Dependabot alerts and security updates.
+
+Weekly Dependabot version updates are configured in [`.github/dependabot.yml`](./.github/dependabot.yml)
+for SHA-pinned Actions and npm packages. npm minor/patch updates are grouped;
+major updates stay separate for review. Updates are not automatically merged.
+Node patch upgrades are deliberate edits to `.node-version`; npm upgrades go in
+`package.json`'s `packageManager` field. When upgrading Puppeteer, review its
+version-specific `allowScripts` entry too, so its browser installation remains
+explicitly approved.
 
 ## Structure
 

@@ -15,7 +15,8 @@
     "build": "npm run generate:cv && vite build",
     "preview": "vite preview",
     "check": "node scripts/validate-cv.mjs && npm run build",
-    "check:motion": "node scripts/check-motion.mjs"
+    "check:motion": "node scripts/check-motion.mjs",
+    "check:site": "node scripts/check-site.mjs"
   },
   "dependencies": {
     "js-yaml": "^5.4.2",

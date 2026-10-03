@@ -154,8 +154,6 @@ button { font: inherit; }
 svg { width: 1.1em; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .site-shell { overflow: hidden; }
 .scroll-progress { position: fixed; inset: 0 0 auto; z-index: 80; height: 3px; pointer-events: none; transform: scaleX(0); transform-origin: left; background: linear-gradient(90deg, var(--yellow), var(--blue), var(--red)); will-change: transform; }
-.cursor-glow { position: fixed; z-index: 5; left: 0; top: 0; width: 280px; aspect-ratio: 1; pointer-events: none; border-radius: 50%; opacity: 0; background: radial-gradient(circle, color-mix(in srgb, var(--blue) 24%, transparent) 0, color-mix(in srgb, var(--blue) 8%, transparent) 38%, transparent 70%); transition: opacity .25s ease; will-change: transform, opacity; contain: strict; }
-.cursor-glow.is-active { opacity: 1; }
 .hero-ambient { position: absolute; inset: var(--header-height) 0 0; z-index: -1; overflow: hidden; pointer-events: none; contain: paint; }
 .ambient-glow { position: absolute; right: 2%; top: 8%; width: min(34rem, 48vw); aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle, var(--blue) 0, transparent 68%); opacity: .075; animation: hero-glow 9s ease-in-out infinite alternate; will-change: transform, opacity; }
 .ambient-shard { position: absolute; display: block; width: clamp(90px, 10vw, 150px); height: clamp(180px, 23vw, 330px); border: 1px solid var(--blue); opacity: .1; transform: rotate(24deg); will-change: transform; }
@@ -582,10 +580,6 @@ body, .manifesto, .career-arc, .work, .experience, .skills, .contact, footer, .w
   footer p:last-child { text-align: right; }
 }
 
-@media (hover: none) {
-  .cursor-glow { display: none; }
-}
-
 /* Give visible decorations their own cached layers, and release them while out
    of view. Only transform and opacity change during the continuous animations. */
 .theme-sun, .theme-waves, .theme-cut, .arcana-deck, .orbit,
@@ -614,6 +608,5 @@ main section[data-motion="paused"] *::after,
   .ambient-ring, .contact-orbit { will-change: auto; }
   .hero-theme-art *, .arcana-deck { animation: none !important; }
   .arc-stage:last-child .arc-node { animation: none; }
-  .cursor-glow { display: none; }
   .work-motif, .skills-motif, .signal-motif::after, .manifesto::before, .manifesto::after, .contact-orbit { animation: none; }
 }

@@ -51,7 +51,6 @@ function SectionTitle({ index, eyebrow, children }) {
 function App({ cv }) {
   const [activeSection, setActiveSection] = useState("");
   const [theme, setTheme] = useState(getInitialTheme);
-  const cursorGlow = useRef(null);
   const scrollProgress = useRef(null);
   const navRef = useRef(null);
   const careerHighlights = cv.career_highlights ?? [];
@@ -147,40 +146,9 @@ function App({ cv }) {
     };
   }, []);
 
-  useEffect(() => {
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reducedMotion || !cursorGlow.current) return undefined;
-
-    const glow = cursorGlow.current;
-    let animationFrame;
-    let pointerX = window.innerWidth * 0.7;
-    let pointerY = window.innerHeight * 0.35;
-    const render = () => {
-      glow.style.transform = `translate3d(${pointerX}px, ${pointerY}px, 0) translate(-50%, -50%)`;
-      animationFrame = undefined;
-    };
-    const move = (event) => {
-      if (event.pointerType && event.pointerType !== "mouse") return;
-      pointerX = event.clientX;
-      pointerY = event.clientY;
-      glow.classList.add("is-active");
-      if (!animationFrame) animationFrame = requestAnimationFrame(render);
-    };
-    const leave = () => glow.classList.remove("is-active");
-
-    window.addEventListener("pointermove", move, { passive: true });
-    document.documentElement.addEventListener("mouseleave", leave);
-    return () => {
-      if (animationFrame) cancelAnimationFrame(animationFrame);
-      window.removeEventListener("pointermove", move);
-      document.documentElement.removeEventListener("mouseleave", leave);
-    };
-  }, []);
-
   return (
     <div className="site-shell">
       <div className="scroll-progress" ref={scrollProgress} aria-hidden="true" />
-      <div className="cursor-glow" ref={cursorGlow} aria-hidden="true" />
       <a className="skip-link" href="#main">Skip to content</a>
       <header className="topbar">
         <a className="monogram" href="#top" aria-label="Mark Rathbone, home">MR<span>.</span></a>

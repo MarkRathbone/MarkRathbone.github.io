@@ -8,6 +8,15 @@ const url = process.env.MOTION_CHECK_URL ?? "http://127.0.0.1:4173/";
 const browsers = process.env.MOTION_CHECK_BROWSER ? [process.env.MOTION_CHECK_BROWSER] : ["firefox", "chrome"];
 const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
 
+async function checkCvDownload(page, filename) {
+  const href = await page.$eval(".mini-cv", link => link.getAttribute("href"));
+  assert.equal(href, `/${filename}`, "The CV download must match the selected theme");
+  const response = await fetch(new URL(href, url));
+  assert(response.ok, `The CV download must be available: ${filename}`);
+  const pdf = Buffer.from(await response.arrayBuffer());
+  assert.equal(pdf.subarray(0, 5).toString(), "%PDF-", `The download must be a PDF, not an HTML fallback: ${filename}`);
+}
+
 for (const name of browsers) {
   const options = {
     browser: name,
@@ -32,6 +41,12 @@ for (const name of browsers) {
         };
       });
       await page.goto(url, { waitUntil: "networkidle0" });
+      assert.equal(await page.$(".cursor-glow"), null, "The removed cursor glow must not return");
+      assert(await page.evaluate(() => {
+        const links = [...document.querySelectorAll('nav[aria-label="Main navigation"] a')];
+        const sections = [...document.querySelectorAll("main section")];
+        return links.length === sections.length && sections.every(section => links.some(link => link.hash === `#${section.id}`));
+      }), "Every section must have a navigation link");
       await page.waitForFunction(() => window.waterDraws > 2);
       const snapshot = await page.$eval(".water-motion", canvas => canvas.toDataURL());
 
@@ -75,14 +90,10 @@ for (const name of browsers) {
       }));
 
       if (width === 1440) {
-        // Headless Firefox reports hover:none. Expose the glow just for this
-        // pointer test; the production touch-device safeguard stays intact.
-        await page.addStyleTag({ content: ".cursor-glow { display: block !important; }" });
-        await page.mouse.move(460, 320);
-        await wait(300);
-        assert(await page.$eval(".cursor-glow", el => el.classList.contains("is-active") && getComputedStyle(el).opacity === "1"));
+        await checkCvDownload(page, "mark-rathbone-cv-cobalt.pdf");
         for (const theme of ["dark", "light"]) {
           await page.click(`button[title*="${theme === "dark" ? "crimson" : "gold"}"]`);
+          await checkCvDownload(page, `mark-rathbone-cv-${theme === "dark" ? "crimson" : "gold"}.pdf`);
           await wait(300);
           const draws = await page.evaluate(() => window.waterDraws);
           await wait(200);
@@ -114,7 +125,7 @@ for (const name of browsers) {
         assert.equal(await page.evaluate(() => window.waterDraws), reduced, "Respect changes to reduced motion without reloading");
       }
       assert.deepEqual(errors, [], "No browser errors");
-      console.log(`${name} ${width}×${height}: ${metrics.fps} fps, p95 ${metrics.p95} ms, scrolling ${scrollFps} fps; animation and visibility checks passed`);
+      console.log(`${name} ${width}×${height}: ${metrics.fps} fps, p95 ${metrics.p95} ms, scrolling ${scrollFps} fps; website checks passed`);
       await page.close();
     }
   } finally {
@@ -132,7 +143,6 @@ for (const name of browsers) {
       const before = await page.$eval(".water-motion", canvas => canvas.toDataURL());
       await wait(300);
       assert.equal(await page.$eval(".water-motion", canvas => canvas.toDataURL()), before, "Reduced-motion water must be static");
-      assert(await page.$eval(".cursor-glow", el => getComputedStyle(el).display === "none"));
       console.log("firefox: native reduced-motion preference passed");
     } finally { await reducedBrowser.close(); }
   }

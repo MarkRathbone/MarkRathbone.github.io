@@ -128,9 +128,28 @@ function App({ cv }) {
   }, [activeSection]);
 
   useEffect(() => {
+    const sections = document.querySelectorAll("main section");
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(({ target, isIntersecting }) => {
+        target.dataset.motion = isIntersecting ? "running" : "paused";
+      });
+    }, { rootMargin: "100px" });
+    sections.forEach(section => observer.observe(section));
+    const visibility = () => {
+      document.documentElement.toggleAttribute("data-page-hidden", document.hidden);
+    };
+    visibility();
+    document.addEventListener("visibilitychange", visibility);
+    return () => {
+      observer.disconnect();
+      document.removeEventListener("visibilitychange", visibility);
+      document.documentElement.removeAttribute("data-page-hidden");
+    };
+  }, []);
+
+  useEffect(() => {
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const firefox = navigator.userAgent.includes("Firefox");
-    if (reducedMotion || firefox || !cursorGlow.current) return undefined;
+    if (reducedMotion || !cursorGlow.current) return undefined;
 
     const glow = cursorGlow.current;
     let animationFrame;

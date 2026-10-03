@@ -40,6 +40,27 @@ Run the same validation used by CI:
 npm run check
 ```
 
+## Animation checks
+
+Firefox and Chromium receive the same moving artwork. Cobalt's water and ambience
+use one canvas with cached artwork, a bounded bitmap, and up to 30 background
+updates per second. Other effects use CSS transforms and opacity. Off-screen
+sections and hidden tabs pause their animation; reduced-motion preferences are
+honoured, including changes made while the page is open.
+
+To check animation behaviour and report frame timings in both browsers, build the
+site, install Firefox for Puppeteer, and start `npm run preview` in another terminal:
+
+```bash
+npx puppeteer browsers install firefox
+npm run check:motion
+```
+
+The check covers desktop, mobile, ultrawide, theme changes, cursor glow, off-screen
+pausing, and reduced motion. Frame timings are diagnostic, since headless hosts
+can render in software. Use `FIREFOX_PATH` for an existing Firefox installation or
+`MOTION_CHECK_URL` to test a different local server.
+
 ## Deploy
 
 The workflow in `.github/workflows/deploy.yml` runs on pushes to `main` or `master`. It validates `cv.yaml`, generates every derived asset, builds the site, uploads the finished `dist/` directory, and deploys that artifact to Pages.

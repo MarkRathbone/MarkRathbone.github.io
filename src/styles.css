@@ -154,9 +154,9 @@ button { font: inherit; }
 svg { width: 1.1em; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .site-shell { overflow: hidden; }
 .scroll-progress { position: fixed; inset: 0 0 auto; z-index: 80; height: 3px; pointer-events: none; transform: scaleX(0); transform-origin: left; background: linear-gradient(90deg, var(--yellow), var(--blue), var(--red)); will-change: transform; }
-.cursor-glow { position: fixed; z-index: 5; left: 0; top: 0; width: 280px; aspect-ratio: 1; pointer-events: none; border-radius: 50%; opacity: 0; background: radial-gradient(circle, color-mix(in srgb, var(--blue) 24%, transparent) 0, color-mix(in srgb, var(--blue) 8%, transparent) 38%, transparent 70%); mix-blend-mode: screen; transition: opacity .25s ease; will-change: transform, opacity; }
+.cursor-glow { position: fixed; z-index: 5; left: 0; top: 0; width: 280px; aspect-ratio: 1; pointer-events: none; border-radius: 50%; opacity: 0; background: radial-gradient(circle, color-mix(in srgb, var(--blue) 24%, transparent) 0, color-mix(in srgb, var(--blue) 8%, transparent) 38%, transparent 70%); transition: opacity .25s ease; will-change: transform, opacity; contain: strict; }
 .cursor-glow.is-active { opacity: 1; }
-.hero-ambient { position: absolute; inset: 76px 0 0; z-index: -1; overflow: hidden; pointer-events: none; contain: paint; }
+.hero-ambient { position: absolute; inset: var(--header-height) 0 0; z-index: -1; overflow: hidden; pointer-events: none; contain: paint; }
 .ambient-glow { position: absolute; right: 2%; top: 8%; width: min(34rem, 48vw); aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle, var(--blue) 0, transparent 68%); opacity: .075; animation: hero-glow 9s ease-in-out infinite alternate; will-change: transform, opacity; }
 .ambient-shard { position: absolute; display: block; width: clamp(90px, 10vw, 150px); height: clamp(180px, 23vw, 330px); border: 1px solid var(--blue); opacity: .1; transform: rotate(24deg); will-change: transform; }
 .ambient-shard::after { content: ""; position: absolute; inset: 12%; border-top: 2px solid var(--yellow); border-bottom: 1px solid var(--blue); }
@@ -173,18 +173,11 @@ svg { width: 1.1em; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-
 .ambient-comet-one { left: 18%; bottom: 19%; animation: ambient-comet 13s ease-in-out infinite; }
 .ambient-comet-two { right: 13%; top: 27%; animation: ambient-comet 16s 3s ease-in-out infinite reverse; }
 .hero-theme-art { position: absolute; inset: var(--header-height) 0 0; z-index: -1; overflow: hidden; pointer-events: none; contain: paint; }
-.theme-water { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
-.water-depth { opacity: .72; }
-.water-rays { opacity: .72; }
-.water-rays path { fill: url(#water-ray); stroke: none; animation: water-ray-pulse 9s ease-in-out infinite alternate; }
-.water-rays path:nth-child(2), .water-rays path:nth-child(4) { animation-delay: -4s; opacity: .65; }
-.water-surface-fill { fill: url(#water-surface); stroke: none; }
-.water-wave-track { animation: water-wave-travel var(--wave-duration) var(--wave-delay) linear infinite; will-change: transform; }
-.water-wave { fill: none; stroke: rgba(213, 250, 255, .48); stroke-width: 2; vector-effect: non-scaling-stroke; opacity: var(--wave-opacity); animation: water-wave-bob var(--wave-bob-duration) var(--wave-bob-delay) ease-in-out infinite alternate; will-change: transform; }
-.water-wave-track:nth-of-type(2) .water-wave { stroke-width: 1.6; }
-.water-wave-track:nth-of-type(3) .water-wave { stroke-width: 1.25; }
-.water-caustics { fill: none; stroke: rgba(174, 237, 255, .16); stroke-width: 1.2; vector-effect: non-scaling-stroke; animation: water-caustics-drift 18s ease-in-out infinite alternate; }
-.water-bubble { fill: rgba(199, 245, 255, .12); stroke: rgba(217, 250, 255, .5); stroke-width: 1; vector-effect: non-scaling-stroke; opacity: var(--bubble-opacity); transform: translateY(var(--bubble-static-y)); animation: water-bubble-rise var(--bubble-duration) var(--bubble-delay) linear infinite; }
+.theme-water { position: absolute; inset: 0; overflow: hidden; contain: strict; }
+.water-depth { position: absolute; inset: 0; opacity: .72; background: linear-gradient(rgba(57,217,255,.5), rgba(19,136,237,.22) 22%, rgba(7,61,145,.08) 72%, rgba(3,25,54,.3)); }
+.water-plane { position: absolute; left: 50%; top: 0; width: 1440px; height: 900px; transform: translateX(-50%) scale(var(--water-scale, 1)); transform-origin: top center; }
+.water-surface-fill { position: absolute; left: -80px; top: 0; width: 1600px; height: 114px; background-repeat: no-repeat; }
+.water-motion { position: absolute; inset: 0; width: 100%; height: 100%; transform: translateZ(0); will-change: transform; }
 .theme-sun, .theme-waves, .theme-cut, .arcana-deck { display: none; }
 .skip-link { position: fixed; left: 1rem; top: -5rem; z-index: 100; padding: .75rem 1rem; background: var(--yellow); color: var(--ink); font-weight: 800; }
 .skip-link:focus { top: 1rem; }
@@ -217,7 +210,8 @@ svg { width: 1.1em; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-
 .hero-grid { position: absolute; inset: var(--header-height) 43% 0 0; z-index: -1; opacity: .18; background-image: linear-gradient(var(--grid-line) 1px, transparent 1px), linear-gradient(90deg, var(--grid-line) 1px, transparent 1px); background-size: 54px 54px; mask-image: linear-gradient(to right, #000, transparent); }
 .hero-copy { position: relative; z-index: 2; max-width: 760px; color: var(--accent-text); }
 .status { width: max-content; max-width: 100%; margin-bottom: 2.5rem; padding: .45rem .65rem; color: var(--control-text); background: var(--yellow); font: 700 .61rem var(--mono); letter-spacing: .06em; text-transform: uppercase; transform: skew(-5deg); }
-.status i { display: inline-block; width: .48rem; height: .48rem; margin-right: .5rem; border-radius: 50%; background: #118948; animation: pulse 2s infinite; }
+.status i { display: inline-block; position: relative; width: .48rem; height: .48rem; margin-right: .5rem; border-radius: 50%; background: #118948; }
+.status i::after { content: ""; position: absolute; inset: -5px; border-radius: inherit; background: rgba(17,137,72,.18); animation: pulse 2s infinite; }
 .status span { margin-left: 1rem; opacity: .55; }
 .hero-kicker, .eyebrow { margin: 0 0 .75rem; color: var(--accent-muted); font: 500 .72rem var(--mono); letter-spacing: .14em; text-transform: uppercase; }
 .hero h1 { margin: 0; font-size: clamp(4.5rem, 10vw, 9rem); line-height: .73; letter-spacing: -.105em; text-transform: uppercase; font-weight: 900; }
@@ -245,9 +239,9 @@ svg { width: 1.1em; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-
 .scroll-cue i { display: block; width: 70px; height: 1px; background: var(--accent-line); position: relative; }
 .scroll-cue i::after { content: ""; position: absolute; width: 18px; height: 1px; background: var(--yellow); animation: scan 2s infinite; }
 
-/* Three original, CSS/SVG-only visual treatments. Motion is slow and optional. */
+/* Three original visual treatments. Cobalt's water and ambience share one canvas. */
 :root[data-theme="mid"] .hero-visual::after { content: ""; position: absolute; z-index: -1; width: 44%; height: 56%; right: -21%; top: 10%; background: rgba(128, 206, 255, .18); clip-path: polygon(0 18%, 70% 0, 100% 25%, 58% 72%, 35% 100%, 12% 62%); }
-:root[data-theme="mid"] .ambient-shard { display: none; }
+:root[data-theme="mid"] .hero-ambient { display: none; }
 :root[data-theme="mid"] .hero-grid { opacity: .12; }
 :root[data-theme="mid"] .career-arc::before { clip-path: polygon(6% 0, 75% 7%, 100% 27%, 57% 51%, 93% 77%, 25% 100%, 0 65%); }
 :root[data-theme="mid"] .work-card { background-image: linear-gradient(140deg, transparent 73%, rgba(167, 226, 255, .1) 73.2%, transparent 74%), linear-gradient(25deg, transparent 83%, rgba(167, 226, 255, .06) 83.2%, transparent 84%); }
@@ -329,7 +323,8 @@ svg { width: 1.1em; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-
 .arc-stage { position: relative; padding-top: 4.6rem; }
 .arc-node { position: absolute; z-index: 1; left: 0; top: 0; width: 41px; height: 41px; display: grid; place-items: center; border: 1px solid var(--blue); border-radius: 50%; background: var(--ink-soft); box-shadow: 0 0 0 8px color-mix(in srgb, var(--blue) 7%, transparent); }
 .arc-node span { color: var(--action-accent); font: 500 .55rem var(--mono); }
-.arc-stage:last-child .arc-node { border-color: var(--yellow); animation: arc-pulse 3.2s ease-in-out infinite; }
+.arc-stage:last-child .arc-node { border-color: var(--yellow); }
+.arc-stage:last-child .arc-node::after { content: ""; position: absolute; inset: -13px; border: 5px solid color-mix(in srgb, var(--yellow) 10%, transparent); border-radius: inherit; animation: arc-pulse 3.2s ease-in-out infinite; }
 .arc-stage > p { margin: 0 0 .65rem; color: var(--label-accent); font: 500 .63rem var(--mono); letter-spacing: .1em; text-transform: uppercase; }
 .arc-stage h3 { margin: 0 0 1rem; font-size: clamp(1.35rem, 2.2vw, 2.2rem); line-height: 1; letter-spacing: -.04em; text-transform: uppercase; }
 .arc-stage > div:last-child { max-width: 410px; color: var(--timeline-copy); font-size: .84rem; line-height: 1.7; }
@@ -479,19 +474,14 @@ body, .manifesto, .career-arc, .work, .experience, .skills, .contact, footer, .w
 
 .reveal { opacity: 0; transform: translateY(20px); transition: opacity .65s ease, transform .65s ease; }
 .reveal.is-visible { opacity: 1; transform: none; }
-@keyframes pulse { 50% { box-shadow: 0 0 0 5px rgba(17,137,72,.18); } }
-@keyframes scan { from { left: 0; } 50% { left: calc(100% - 18px); } to { left: 0; } }
+@keyframes pulse { 0%, 100% { transform: scale(.42); opacity: 0; } 50% { transform: scale(1); opacity: 1; } }
+@keyframes scan { 50% { transform: translateX(52px); } }
 @keyframes hero-shard-one { to { transform: translate3d(24px, -18px, 0) rotate(31deg); } }
 @keyframes hero-shard-two { from { transform: rotate(37deg); } to { transform: translate3d(-20px, 16px, 0) rotate(28deg); } }
 @keyframes hero-shard-three { to { transform: translate3d(18px, -22px, 0) rotate(15deg); } }
 @keyframes hero-glow { to { opacity: .11; transform: translate3d(-3vw, 2vh, 0) scale(1.05); } }
 @keyframes ambient-orbit { to { transform: rotate(360deg); } }
 @keyframes ambient-comet { 0%, 100% { opacity: .05; transform: translate3d(-24px, 16px, 0) rotate(-18deg); } 50% { opacity: .22; transform: translate3d(28px, -18px, 0) rotate(-18deg); } }
-@keyframes water-wave-travel { to { transform: translate3d(var(--wave-distance), 0, 0); } }
-@keyframes water-wave-bob { to { transform: translate3d(0, var(--wave-lift), 0); } }
-@keyframes water-caustics-drift { to { transform: translate3d(22px, 12px, 0); opacity: .58; } }
-@keyframes water-ray-pulse { to { opacity: .48; } }
-@keyframes water-bubble-rise { from { transform: translate3d(0, 980px, 0); } to { transform: translate3d(var(--bubble-drift), -80px, 0); } }
 @keyframes sun-turn { to { transform: rotate(360deg); } }
 @keyframes wave-drift { to { transform: translate3d(22px, 0, 0); } }
 @keyframes deck-float { to { transform: translate3d(0, -9px, 0); } }
@@ -499,7 +489,7 @@ body, .manifesto, .career-arc, .work, .experience, .skills, .contact, footer, .w
 @keyframes cut-drift-two { to { transform: translate3d(-11px, 8px, 0) rotate(8deg); } }
 @keyframes profile-drift { to { transform: translate3d(-28px, -18px, 0) rotate(12deg); } }
 @keyframes profile-signal { to { transform: translate3d(22px, -8px, 0); opacity: .38; } }
-@keyframes arc-pulse { 50% { box-shadow: 0 0 0 13px color-mix(in srgb, var(--yellow) 10%, transparent); } }
+@keyframes arc-pulse { 0%, 100% { transform: scale(.84); opacity: 0; } 50% { transform: scale(1); opacity: 1; } }
 @keyframes orbit-drift { to { transform: translate3d(12px, -5px, 0) rotate(-5deg); } }
 @keyframes motif-orbit { to { transform: rotate(360deg); } }
 @keyframes signal-travel { 50% { transform: translate3d(0, calc(100vh - 150px), 0); } }
@@ -596,21 +586,23 @@ body, .manifesto, .career-arc, .work, .experience, .skills, .contact, footer, .w
   .cursor-glow { display: none; }
 }
 
-/* Firefox can repaint masked and clipped layers during nearby transforms. Keep the
-   ambient composition, but leave its decorative geometry static in Gecko. */
+/* Give visible decorations their own cached layers, and release them while out
+   of view. Only transform and opacity change during the continuous animations. */
+.theme-sun, .theme-waves, .theme-cut, .arcana-deck, .orbit,
+.work-motif, .skills-motif, .contact-orbit,
+.manifesto::before, .manifesto::after, .signal-motif::after,
+.status i::after, .scroll-cue i::after, .arc-node::after { will-change: transform, opacity; }
+main section[data-motion="paused"] *, main section[data-motion="paused"]::before,
+main section[data-motion="paused"]::after, main section[data-motion="paused"] *::before,
+main section[data-motion="paused"] *::after,
+:root[data-page-hidden] main *, :root[data-page-hidden] main *::before,
+:root[data-page-hidden] main *::after { animation-play-state: paused !important; will-change: auto !important; }
+
+/* Keep the costly full-screen noise filter out of Firefox's paint pipeline.
+   The scene itself uses the same animations and artwork in every browser. */
 @supports (-moz-appearance: none) {
   body::before { display: none; }
-  .cursor-glow { display: none; }
-  .ambient-glow, .ambient-shard, .ambient-ring, .ambient-comet { animation: none; will-change: auto; }
-  .hero-theme-art *, .arcana-deck { animation: none !important; will-change: auto; }
-  .hero-grid { mask-image: none; opacity: .09; }
-  .portrait-frame img { filter: none; }
-  .company-logo, .cert-panel { clip-path: none; }
-  .reveal { opacity: 1; transform: none; transition: none; }
-  .status i, .scroll-cue i::after, .arc-stage:last-child .arc-node { animation: none; }
-  .orbit { animation: none; }
-  .work-card::before { display: none; }
-  .work-motif, .skills-motif, .signal-motif::after, .manifesto::before, .manifesto::after, .contact-orbit { animation: none; }
+  .portrait-frame img { will-change: transform; }
 }
 
 @media (prefers-reduced-motion: reduce) {

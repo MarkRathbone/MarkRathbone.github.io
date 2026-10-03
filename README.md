@@ -1,6 +1,6 @@
 # Mark Rathbone — portfolio and CV as code
 
-The website, downloadable PDF CV, machine-readable CV data, and social preview image are generated from [`cv.yaml`](./cv.yaml). Generated outputs are not stored in source control: GitHub Actions creates, checks, and deploys them on every push to `master`.
+The website, downloadable PDF CV, machine-readable CV data, and social preview image are generated from [`cv.yaml`](./cv.yaml). Generated outputs are not stored in source control: GitHub Actions creates, checks, and deploys them on every push to `main`.
 
 ## Edit the CV
 
@@ -69,23 +69,27 @@ already running, use `MOTION_CHECK_URL=http://127.0.0.1:4173/ npm run check:moti
 ## Deploy
 
 The single workflow in [`.github/workflows/deploy.yml`](./.github/workflows/deploy.yml)
-validates pull requests targeting `master` and pushes to `master`. It validates
+validates pull requests targeting `main` and pushes to `main`. It validates
 `cv.yaml`, generates every derived asset, builds the site, and checks the finished
 build in Firefox and Chromium before uploading it for deployment.
 
 The build job has a read-only repository token. Only the separate deployment job
-has Pages write and OIDC permissions, and it deploys only from `master`, never from
+has Pages write and OIDC permissions, and it deploys only from `main`, never from
 a pull request. Manual runs on other branches validate without deploying. Stale
 checks are cancelled; an active deployment is allowed to finish. Both jobs have
 explicit 15-minute timeouts.
 
 In the repository settings, set **Pages → Build and deployment → Source** to **GitHub Actions** once. No `gh-pages` branch, committed build output, or deploy token is required.
 
-Apply these repository settings on GitHub; workflow files alone cannot enforce them:
+The repository also uses these GitHub settings, which are enforced outside the workflow:
 
-- Protect `master` with a ruleset requiring pull requests and the **Validate, build and test** status check. No mandatory reviewer is needed for a solo-maintained portfolio.
-- Restrict the **github-pages** environment's deployment branches to `master`.
-- Enable Dependabot alerts and security updates.
+- An active `main` ruleset requires pull requests and the **Validate, build and test** check from GitHub Actions, tested against the latest base branch. No mandatory reviewer is needed for a solo-maintained portfolio. Force pushes and branch deletion are blocked.
+- The **github-pages** environment allows deployments only from `main`.
+- Dependabot alerts and security updates are enabled.
+
+Make future changes on a feature branch and merge a pull request once the check passes;
+direct pushes to `main` are blocked. The branch was renamed from `master` without
+rewriting commit history.
 
 Weekly Dependabot version updates are configured in [`.github/dependabot.yml`](./.github/dependabot.yml)
 for SHA-pinned Actions and npm packages. npm minor/patch updates are grouped;

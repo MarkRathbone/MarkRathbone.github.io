@@ -27,9 +27,11 @@ npm ci
 npm run dev
 ```
 
-Build the production site and themed PDFs:
+Install Puppeteer's pinned browsers, then build the production site and themed
+PDFs. Repeat the browser installation after Puppeteer updates:
 
 ```bash
+npm run install:browsers
 npm run build
 ```
 
@@ -52,7 +54,7 @@ honoured, including changes made while the page is open.
 To run the same Firefox and Chromium checks as CI:
 
 ```bash
-npm exec --no -- puppeteer browsers install firefox
+npm run install:browsers
 npm run check
 npm run check:site
 ```
@@ -69,9 +71,10 @@ already running, use `MOTION_CHECK_URL=http://127.0.0.1:4173/ npm run check:moti
 ## Deploy
 
 The single workflow in [`.github/workflows/deploy.yml`](./.github/workflows/deploy.yml)
-validates pull requests targeting `main` and pushes to `main`. It validates
-`cv.yaml`, generates every derived asset, builds the site, and checks the finished
-build in Firefox and Chromium before uploading it for deployment.
+validates pull requests targeting `main` and pushes to `main`. It installs the
+pinned browsers, validates `cv.yaml`, generates every derived asset, builds the
+site, and checks the finished build in Firefox and Chromium before uploading it
+for deployment.
 
 The build job has a read-only repository token. Only the separate deployment job
 has Pages write and OIDC permissions, and it deploys only from `main`, never from
@@ -95,9 +98,13 @@ Weekly Dependabot version updates are configured in [`.github/dependabot.yml`](.
 for SHA-pinned Actions and npm packages. npm minor/patch updates are grouped;
 major updates stay separate for review. Updates are not automatically merged.
 Node patch upgrades are deliberate edits to `.node-version`; npm upgrades go in
-`package.json`'s `packageManager` field. When upgrading Puppeteer, review its
-version-specific `allowScripts` entry too, so its browser installation remains
-explicitly approved.
+`package.json`'s `packageManager` field.
+
+Puppeteer's dependency install script is explicitly denied in `allowScripts`.
+Browsers are installed separately with `npm run install:browsers`, using the
+versions pinned by the locked Puppeteer package, before PDF generation or browser
+checks. This keeps dependency install hooks blocked without a version-specific
+approval that can fall out of sync with Dependabot updates.
 
 ## Structure
 
